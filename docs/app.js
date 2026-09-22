@@ -378,8 +378,11 @@
     bmRender();
   });
 
-  // Study ranges. Monochrome with one accent: every row is directly labelled,
-  // so colour is not carrying identity here — it only marks which row is yours.
+  // Study ranges. Colour carries one idea: QR and NFC are two shades of the
+  // same blue because they are the same kind of answer, and pen and paper is a
+  // neutral grey because it is not. Your own measurement is black, so it never
+  // reads as a fourth method. Every row is directly labelled as well, so nothing
+  // here depends on colour alone.
   var STUDY = [
     { key: "qr",    label: "QR codes",    lo: 1, hi: 3 },
     { key: "nfc",   label: "NFC tags",    lo: 3, hi: 6 },
@@ -389,12 +392,13 @@
   function renderChart() {
     var st = bmStats();
     var rows = STUDY.map(function (r) {
-      return { label: r.label, lo: r.lo, hi: r.hi, you: false };
+      return { key: r.key, label: r.label, lo: r.lo, hi: r.hi, you: false };
     });
     if (st) {
       var m = $("#bm-method");
       var name = m.options[m.selectedIndex].text;
-      rows.push({ label: "You — " + name, lo: st.lo, hi: st.hi, mean: st.mean, you: true });
+      rows.push({ key: "you", label: "You — " + name,
+                  lo: st.lo, hi: st.hi, mean: st.mean, you: true });
     }
 
     var W = 640, rowH = 34, padL = 150, padR = 60, padT = 8, padB = 30;
@@ -422,7 +426,7 @@
                 (r.mean != null ? " (mean " + r.mean.toFixed(1) + " s)" : "");
       parts.push('<g class="mark' + (r.you ? " you" : "") + '">');
       parts.push("<title>" + esc(tip) + "</title>");
-      parts.push('<rect class="bar' + (r.you ? " you" : "") + '" x="' + x(r.lo) +
+      parts.push('<rect class="bar ' + r.key + '" x="' + x(r.lo) +
                  '" y="' + (cy - 5) + '" width="' + w + '" height="10" rx="4"/>');
       parts.push('<text x="' + (padL - 10) + '" y="' + (cy + 5) +
                  '" text-anchor="end">' + esc(r.label) + "</text>");

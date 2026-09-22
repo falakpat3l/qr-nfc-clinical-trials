@@ -72,13 +72,17 @@ li { margin-bottom: 5px }
 /* Benchmark chart */
 .chart { margin: 8px 0 13px }
 .chart .track { fill: none }
-.chart .bar { fill: #555555 }
-.chart .bar.you { fill: #0000ee }
+/* QR and NFC are two shades of one hue because they are the same kind of
+   answer; paper is neutral grey because it is not. Your own measurement is
+   black, so it never reads as a fourth method. */
+.chart .bar.qr    { fill: #0000ee }
+.chart .bar.nfc   { fill: #7b7be8 }
+.chart .bar.paper { fill: #6b6b6b }
+.chart .bar.you   { fill: #000000 }
 .chart text { font: 14px/1 "Times New Roman", Times, serif; fill: #000000 }
 .chart text.axis { fill: #555555 }
 .chart .grid { stroke: #e2e2e2; stroke-width: 1 }
-.chart g.mark:hover .bar { fill: #000000 }
-.chart g.mark.you:hover .bar { fill: #0000ee }
+.chart g.mark:hover .bar { opacity: .72 }
 
 .big { font-size: 22px; font-weight: bold; font-variant-numeric: tabular-nums }
 

@@ -4,7 +4,7 @@ A study of whether scanning a code beats writing on a clipboard when you are
 recording dosing events in a trial, and a small offline web app that implements
 the faster of the two.
 
-**[Read the write-up →](https://FALAK-GITHUB-USERNAME.github.io/qr-nfc-clinical-trials/)** · **[Open the capture app →](https://FALAK-GITHUB-USERNAME.github.io/qr-nfc-clinical-trials/app.html)**
+**[Read the write-up →](https://falakpat3l.github.io/qr-nfc-clinical-trials/)** · **[Open the capture app →](https://falakpat3l.github.io/qr-nfc-clinical-trials/app.html)**
 
 ---
 
@@ -136,7 +136,7 @@ backend to upload to.
 ### Running it
 
 ```bash
-git clone https://github.com/FALAK-GITHUB-USERNAME/qr-nfc-clinical-trials.git
+git clone https://github.com/falakpat3l/qr-nfc-clinical-trials.git
 cd qr-nfc-clinical-trials
 python3 -m http.server 8000 --directory docs
 ```

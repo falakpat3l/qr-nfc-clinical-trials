@@ -2,11 +2,13 @@
 Render the two figures used in the README and on the project page.
 
 Design notes (deliberate, not defaults):
-  * The figures are monochrome with a single accent, matching the project page.
-    There is no categorical colour encoding here at all - every category is
-    directly labelled on the y axis, so identity is carried by position and text,
-    not by hue. That is why no categorical palette is defined or validated: the
-    accent marks the headline arm (QR), nothing more.
+  * Colour carries one idea only: QR and NFC are two shades of the same blue
+    because they are the same kind of answer, and pen and paper is a neutral
+    grey because it is not. The reader should see two of these grouped and one
+    apart before reading a single label.
+  * Every category is also directly labelled on the y axis, so identity never
+    depends on colour alone. The three fills separate by lightness as well as
+    hue, so the grouping survives colour-vision deficiency and greyscale print.
   * Axes and grid are recessive. No frame, no chartjunk, no value on every mark.
   * Output is SVG for the web page and PNG for the README, since GitHub's
     markdown renderer is unreliable with SVG.
@@ -27,8 +29,15 @@ OUT = ROOT / "analysis" / "figures"
 INK = "#000000"
 MUTED = "#555555"
 RECESSIVE = "#b0b0b0"
-ACCENT = "#0000ee"
 SURFACE = "#ffffff"
+
+# QR and NFC: one hue, two shades - the same class of answer.
+# Paper: neutral grey - deliberately outside that family.
+ARM_COLOR = {
+    "qr":    "#0000ee",
+    "nfc":   "#7b7be8",
+    "paper": "#6b6b6b",
+}
 
 plt.rcParams.update({
     "font.family": "serif",
@@ -64,7 +73,7 @@ def fig_user_acceptance():
     labels = [r["label"] for r in rows]
     counts = [int(r["respondents"]) for r in rows]
     shares = [int(r["share_percent"]) for r in rows]
-    colors = [ACCENT if r["method"] == "qr" else MUTED for r in rows]
+    colors = [ARM_COLOR[r["method"]] for r in rows]
 
     fig, ax = plt.subplots(figsize=(6.6, 2.5), dpi=200)
     bars = ax.barh(labels, counts, height=0.42, color=colors, zorder=3)
@@ -96,7 +105,7 @@ def fig_capture_time():
     labels = [r["label"] for r in rows]
     lo = [float(r["min_seconds"]) for r in rows]
     hi = [float(r["max_seconds"]) for r in rows]
-    colors = [ACCENT if r["method"] == "qr" else MUTED for r in rows]
+    colors = [ARM_COLOR[r["method"]] for r in rows]
 
     fig, ax = plt.subplots(figsize=(6.6, 2.5), dpi=200)
     y = range(len(labels))
