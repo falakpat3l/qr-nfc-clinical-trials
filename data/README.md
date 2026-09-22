@@ -3,7 +3,7 @@
 Three files. Two of them are measurements. One of them is not, and it says so on
 every row.
 
-## `user-acceptance.csv` — observed
+## `user-acceptance.csv`: observed
 
 Ten people doing pre-clinical research used all three capture methods and then
 picked the one they preferred. This file holds that count.
@@ -16,11 +16,11 @@ picked the one they preferred. This file holds that count.
 | `share_percent` | The same as a percentage |
 
 The preference question is the only one reported here. Two other questions were
-asked — whether the respondent had used QR or NFC before, and whether they
-thought it was faster — but the per-respondent answers were not retained, so they
+asked (whether the respondent had used QR or NFC before, and whether they
+thought it was faster), but the per-respondent answers were not retained, so they
 are not included rather than being reconstructed.
 
-## `capture-time-summary.csv` — observed
+## `capture-time-summary.csv`: observed
 
 The range of time taken to record a single observation by each method, across
 three cages per arm.
@@ -36,7 +36,7 @@ These are ranges, not means with dispersion. The underlying per-event readings
 were not retained, so a mean and standard deviation cannot honestly be recovered
 from them.
 
-## `capture-events.csv` — **synthetic, not a measurement**
+## `capture-events.csv`: **synthetic, not a measurement**
 
 180 per-event rows: 3 arms, 3 cages per arm, 20 events per cage.
 

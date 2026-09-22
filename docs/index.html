@@ -27,7 +27,7 @@
 <p><strong><a href="app.html">Open the capture app &rarr;</a></strong> &nbsp; <span class="muted">&middot;</span> &nbsp; <a href="https://github.com/falakpat3l/qr-nfc-clinical-trials">Source and data on GitHub</a></p>
 
 <h2>The problem</h2>
-<p>Trial data still gets written on paper. The cost is not the writing &mdash; it is that someone later has to type the same numbers into a computer a second time. That second pass is where the hours and the transcription errors come from, and it is invisible in any measurement that only times the original act of writing.</p>
+<p>Trial data still gets written on paper. The cost is not the writing: it is that someone later has to type the same numbers into a computer a second time. That second pass is where the hours and the transcription errors come from, and it is invisible in any measurement that only times the original act of writing.</p>
 <p>Both QR codes and NFC tags remove the second pass. You scan, and the record is already structured and already timestamped. The question here is how much that actually saves, and which of the two is the better bet.</p>
 
 <h2>Time to record one observation</h2>
@@ -49,7 +49,7 @@
 
 <p>Ten people doing pre-clinical research used all three methods and then chose one. <strong>Preference split evenly between QR and paper.</strong></p>
 
-<p>This is the result people usually skip past, and it is the most interesting one here: being measurably faster did not make QR the preferred method. Four of ten still wanted the clipboard. With n&nbsp;=&nbsp;10 this is directional at best and carries no statistical weight, but it points at something real &mdash; the barrier to electronic capture in the animal house is habit and trust, not speed. Any rollout that assumes people will switch because the stopwatch says so is going to be disappointed.</p>
+<p>This is the result people usually skip past, and it is the most interesting one here: being measurably faster did not make QR the preferred method. Four of ten still wanted the clipboard. With n&nbsp;=&nbsp;10 this is directional at best and carries no statistical weight, but it points at something real: the barrier to electronic capture in the animal house is habit and trust, not speed. Any rollout that assumes people will switch because the stopwatch says so is going to be disappointed.</p>
 
 <h2>QR or NFC?</h2>
 <p>They are not interchangeable, and the right answer depends on what the site actually needs.</p>
@@ -58,10 +58,10 @@
 <thead><tr><th></th><th>NFC tags</th><th>QR codes</th></tr></thead>
 <tbody>
 <tr><th>Mechanism</th><td>Short-range radio between two devices</td><td>Two-dimensional barcode read by a camera</td></tr>
-<tr><th>Range</th><td>A few centimetres &mdash; must be tapped</td><td>Readable at a distance, scaling with printed size</td></tr>
+<tr><th>Range</th><td>A few centimetres: must be tapped</td><td>Readable at a distance, scaling with printed size</td></tr>
 <tr><th>Capacity</th><td>Several kilobytes</td><td>A few hundred characters</td></tr>
 <tr><th>Security</th><td>Harder to capture: proximity is required</td><td>Weaker: anything that can see it can copy it</td></tr>
-<tr><th>Cost</th><td>Higher &mdash; each tag is a physical chip</td><td>Near zero &mdash; it prints on anything</td></tr>
+<tr><th>Cost</th><td>Higher: each tag is a physical chip</td><td>Near zero: it prints on anything</td></tr>
 <tr><th>Device support</th><td>Uneven, and absent on some phones</td><td>Any phone with a camera</td></tr>
 <tr><th>Duplication</th><td>Hard, which is a feature for custody</td><td>Trivial, which is a hazard</td></tr>
 </tbody>
@@ -72,10 +72,10 @@
 <h2>What this does not show</h2>
 <ul>
 <li><strong>Sample size.</strong> Ten respondents, and three cages per arm. Everything here is directional. None of it is powered for a significance claim, and I have not made one.</li>
-<li><strong>Error rates were not quantified.</strong> The argument that scanning reduces transcription error is mechanically sound &mdash; there is no transcription step to get wrong &mdash; but I did not measure error rates, so none are reported.</li>
+<li><strong>Error rates were not quantified.</strong> The argument that scanning reduces transcription error is mechanically sound (there is no transcription step to get wrong), but I did not measure error rates, so none are reported.</li>
 <li><strong>Re-entry time was not measured</strong>, only observed to exist.</li>
 <li><strong>The population was not representative.</strong> Everyone involved was comfortable with a smartphone. The known failure mode for this kind of system is a user who is not, and that user was not in the sample.</li>
-<li><strong>Technical failure modes are under-explored.</strong> Camera focus in low light, a dirty or curled label, a phone without NFC, a dead battery mid-round &mdash; each is a data loss event that paper does not have.</li>
+<li><strong>Technical failure modes are under-explored.</strong> Camera focus in low light, a dirty or curled label, a phone without NFC, a dead battery mid-round: each is a data loss event that paper does not have.</li>
 <li><strong>Privacy and custody.</strong> A scannable code on a cage is readable by anyone who walks past it with a phone. Identifiers should be opaque and the mapping held elsewhere. The app here stores data only in your own browser and transmits nothing, which sidesteps the question rather than answering it.</li>
 </ul>
 
@@ -85,7 +85,7 @@
 <li><strong>Write into the record system directly.</strong> Capture that terminates in a CSV on someone's laptop has moved the re-entry problem rather than removed it. The destination has to be the EDC or EHR.</li>
 <li><strong>Personalise the label.</strong> A code carrying subject, drug, dose and schedule can drive reminders and adherence checks, not just logging.</li>
 <li><strong>Design for the uncomfortable user</strong>, since that is where adoption actually fails.</li>
-<li><strong>Look at BLE and RFID</strong> where QR and NFC run out &mdash; longer range, no line of sight, bulk reads of a whole rack at once.</li>
+<li><strong>Look at BLE and RFID</strong> where QR and NFC run out: longer range, no line of sight, bulk reads of a whole rack at once.</li>
 </ol>
 
 <h2>The label format</h2>
@@ -97,16 +97,16 @@
 <h2>The app</h2>
 <p><a href="app.html">A single-page capture tool.</a> No build step, no server, no network. Open it and it works.</p>
 <ul>
-<li><strong>Generate</strong> &mdash; turn a dosing record into a QR label you can print and attach.</li>
-<li><strong>Scan</strong> &mdash; read a label with the device camera and log it, timestamped.</li>
-<li><strong>NFC</strong> &mdash; read and write the same record to a tag. Needs Web NFC, which today means Chrome on Android; elsewhere it explains why rather than failing silently.</li>
-<li><strong>Benchmark</strong> &mdash; time yourself and get your own version of the chart above, rather than trusting mine.</li>
-<li><strong>Log</strong> &mdash; everything captured, exportable as CSV or JSON.</li>
+<li><strong>Generate</strong>: turn a dosing record into a QR label you can print and attach.</li>
+<li><strong>Scan</strong>: read a label with the device camera and log it, timestamped.</li>
+<li><strong>NFC</strong>: read and write the same record to a tag. Needs Web NFC, which today means Chrome on Android; elsewhere it explains why rather than failing silently.</li>
+<li><strong>Benchmark</strong>: time yourself and get your own version of the chart above, rather than trusting mine.</li>
+<li><strong>Log</strong>: everything captured, exportable as CSV or JSON.</li>
 </ul>
 <p>Records stay in your browser's local storage. Nothing is uploaded, and there is no backend to upload to. The camera and NFC both need a secure context, so use this page over HTTPS or on <code>localhost</code>.</p>
 
 <h2>Data and code</h2>
-<p>The observed summaries, the figure-rendering code, the label format and a browser-free test that encodes an event, renders it to a real QR matrix and scans it back are all <a href="https://github.com/falakpat3l/qr-nfc-clinical-trials">on GitHub</a>. The per-event dataset in that repository is synthetic and labelled as such on every row &mdash; the original per-event readings were not retained, so it exists to let the analysis code run, not as evidence.</p>
+<p>The observed summaries, the figure-rendering code, the label format and a browser-free test that encodes an event, renders it to a real QR matrix and scans it back are all <a href="https://github.com/falakpat3l/qr-nfc-clinical-trials">on GitHub</a>. The per-event dataset in that repository is synthetic and labelled as such on every row: the original per-event readings were not retained, so it exists to let the analysis code run, not as evidence.</p>
 
 <footer>
 <p class="muted">Falak Ameesh Patel &middot; <a href="https://falakpatel.com">falakpatel.com</a><br>

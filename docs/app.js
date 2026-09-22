@@ -1,6 +1,6 @@
 /* Capture app for trial dosing events.
    No framework, no build step, no network. Two vendored libraries only.
-   Falak Ameesh Patel — PolyForm Noncommercial 1.0.0 */
+   Falak Ameesh Patel. PolyForm Noncommercial 1.0.0 */
 (function () {
   "use strict";
 
@@ -26,7 +26,7 @@
 
   function saveStore() {
     try { localStorage.setItem(KEY, JSON.stringify(events)); }
-    catch (e) { /* quota or blocked — the session still works, it just won't persist */ }
+    catch (e) { /* quota or blocked: the session still works, it just won't persist */ }
   }
 
   function addEvent(rec, source) {
@@ -260,7 +260,7 @@
     $("#scan-last").innerHTML =
       "<h3>Logged</h3><p>" + esc(describe(rec)) + "<br>" +
       '<span class="muted"><small>' + esc(new Date(row.ts).toLocaleTimeString()) +
-      " · cage " + esc(rec.cage || "—") + " · by " + esc(rec.op || "—") +
+      " · cage " + esc(rec.cage || "n/a") + " · by " + esc(rec.op || "n/a") +
       "</small></span></p>";
   }
 
@@ -283,7 +283,7 @@
   $("#nfc-support").textContent = NFC_OK
     ? ""
     : "Web NFC is not available in this browser. Today that means it works in " +
-      "Chrome on Android and nowhere else — iOS exposes no web NFC API at all. " +
+      "Chrome on Android and nowhere else: iOS exposes no web NFC API at all. " +
       "The QR tabs work everywhere.";
   if (!NFC_OK) {
     $("#nfc-read").disabled = true;
@@ -318,7 +318,7 @@
           $("#nfc-last").innerHTML =
             "<h3>Logged</h3><p>" + esc(describe(rec)) + "<br>" +
             '<span class="muted"><small>' + esc(new Date(row.ts).toLocaleTimeString()) +
-            " · tag " + esc(ev.serialNumber || "—") + "</small></span></p>";
+            " · tag " + esc(ev.serialNumber || "n/a") + "</small></span></p>";
         };
       }).catch(function (e) { nfcMsg("Scan failed: " + e.message); });
     } catch (e) { nfcMsg("Scan failed: " + e.message); }
@@ -367,7 +367,7 @@
   function bmRender() {
     var st = bmStats();
     $("#bm-n").textContent = st ? st.n : 0;
-    $("#bm-mean").textContent = st ? st.mean.toFixed(1) : "—";
+    $("#bm-mean").textContent = st ? st.mean.toFixed(1) : "n/a";
     renderChart();
   }
 
@@ -423,7 +423,7 @@
     if (st) {
       var m = $("#bm-method");
       var name = m.options[m.selectedIndex].text;
-      rows.push({ key: "you", label: "You — " + name,
+      rows.push({ key: "you", label: "You: " + name,
                   lo: st.lo, hi: st.hi, mean: st.mean, you: true });
     }
 

@@ -1,4 +1,4 @@
-/* CTDE1 — Clinical Trial Dosing Event, version 1.
+/* CTDE1: Clinical Trial Dosing Event, version 1.
  *
  * A dosing event is encoded as pipe-delimited plain text:
  *
@@ -12,7 +12,7 @@
  * a real cost at this size, and the field list is fixed.
  *
  * Every field is percent-encoded, so a pipe inside a value cannot split the
- * record. "CTDE1" is a version marker — a later CTDE2 may change the field
+ * record. "CTDE1" is a version marker: a later CTDE2 may change the field
  * list without old and new labels ever being mistaken for one another.
  *
  * This file is deliberately standalone and dependency-free. It is the part of

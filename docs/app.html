@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Capture app — QR and NFC for clinical trials</title>
+<title>Capture app: QR and NFC for clinical trials</title>
 <meta name="description" content="Offline capture tool for trial dosing events: generate and scan QR labels, read and write NFC tags, and benchmark capture time against pen and paper.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 fill=%27%23fff%27/%3E%3Cg fill=%27%230000ee%27%3E%3Cpath d=%27M1 1h5v5H1V1zm1 1v3h3V2H2z%27/%3E%3Cpath d=%27M10 1h5v5h-5V1zm1 1v3h3V2h-3z%27/%3E%3Cpath d=%27M1 10h5v5H1v-5zm1 1v3h3v-3H2z%27/%3E%3Crect x=%273%27 y=%273%27 width=%271%27 height=%271%27/%3E%3Crect x=%2712%27 y=%273%27 width=%271%27 height=%271%27/%3E%3Crect x=%273%27 y=%2712%27 width=%271%27 height=%271%27/%3E%3Crect x=%278%27 y=%278%27 width=%272%27 height=%272%27/%3E%3Crect x=%2711%27 y=%278%27 width=%271%27 height=%271%27/%3E%3Crect x=%2713%27 y=%2710%27 width=%272%27 height=%271%27/%3E%3Crect x=%278%27 y=%2711%27 width=%271%27 height=%272%27/%3E%3Crect x=%2711%27 y=%2713%27 width=%272%27 height=%272%27/%3E%3C/g%3E%3C/svg%3E">
 <link rel="canonical" href="https://falakpat3l.github.io/qr-nfc-clinical-trials/app.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Capture app — QR and NFC for clinical trials">
+<meta property="og:title" content="Capture app: QR and NFC for clinical trials">
 <meta property="og:description" content="Generate and scan QR labels, read and write NFC tags, and benchmark capture time against pen and paper. Runs offline, stores nothing remotely.">
 <meta property="og:url" content="https://falakpat3l.github.io/qr-nfc-clinical-trials/app.html">
 <meta property="og:image" content="https://falakpat3l.github.io/qr-nfc-clinical-trials/figures/og.png">
@@ -87,7 +87,7 @@
   <video id="scan-video" playsinline muted hidden></video>
   <canvas id="scan-canvas" hidden></canvas>
   <div id="scan-last"></div>
-  <p class="note">The camera needs a secure context. This works on <code>localhost</code> and over HTTPS. Video never leaves the page &mdash; frames are decoded here and discarded.</p>
+  <p class="note">The camera needs a secure context. This works on <code>localhost</code> and over HTTPS. Video never leaves the page: frames are decoded here and discarded.</p>
 </section>
 
 <!-- ------------------------------------------------------------------ -->
@@ -108,7 +108,7 @@
 <section id="tab-benchmark" role="tabpanel" tabindex="0" aria-labelledby="t-benchmark" hidden>
   <h2>Time yourself</h2>
   <p>Rather than trusting my numbers, measure your own. Pick a method, start the clock, and press <em>Captured</em> once per recorded observation. The gap between presses is one capture event.</p>
-  <p class="note">Press <em>Start</em> as you reach the first subject, not before &mdash; the first interval is measured from that press, so any walking you do in between lands inside it.</p>
+  <p class="note">Press <em>Start</em> as you reach the first subject, not before: the first interval is measured from that press, so any walking you do in between lands inside it.</p>
 
   <div class="row">
     <label><span>Method being timed</span>
@@ -126,7 +126,7 @@
     <button class="act" id="bm-reset">Reset</button>
   </div>
 
-  <p><span class="big" id="bm-mean">&mdash;</span> <span class="muted">mean seconds per event, over <span id="bm-n">0</span> events</span></p>
+  <p><span class="big" id="bm-mean">n/a</span> <span class="muted">mean seconds per event, over <span id="bm-n">0</span> events</span></p>
 
   <h3>Your result against the study</h3>
   <div class="chart" id="bm-chart"></div>

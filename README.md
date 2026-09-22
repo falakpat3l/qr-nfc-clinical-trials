@@ -4,7 +4,7 @@ A study of whether scanning a code beats writing on a clipboard when you are
 recording dosing events in a trial, and a small offline web app that implements
 the faster of the two.
 
-My B.Pharm thesis, published 2023 — [Dr. D. Y. Patil College of Pharmacy,
+My B.Pharm thesis, published 2023, at [Dr. D. Y. Patil College of Pharmacy,
 Akurdi](https://www.dyppharmaakurdi.ac.in/), [Savitribai Phule Pune
 University](https://www.unipune.ac.in/).
 
@@ -14,7 +14,7 @@ University](https://www.unipune.ac.in/).
 
 ## The problem
 
-Trial data still gets written on paper. The cost is not the writing — it is that
+Trial data still gets written on paper. The cost is not the writing: it is that
 someone later has to type the same numbers into a computer a second time. That
 second pass is where the hours and the transcription errors come from, and it is
 invisible in any measurement that only times the original act of writing.
@@ -58,7 +58,7 @@ Ten people doing pre-clinical research used all three methods and then chose one
 usually skip past, and it is the most interesting one here: being measurably
 faster did not make QR the preferred method. Four of ten still wanted the
 clipboard. With n = 10 this is directional at best and carries no statistical
-weight, but it points at something real — the barrier to electronic capture in
+weight, but it points at something real: the barrier to electronic capture in
 the animal house is habit and trust, not speed. Any rollout that assumes people
 will switch because the stopwatch says so is going to be disappointed.
 
@@ -70,10 +70,10 @@ actually needs.
 | | NFC tags | QR codes |
 |---|---|---|
 | **Mechanism** | Short-range radio between two devices | Two-dimensional barcode read by a camera |
-| **Range** | A few centimetres — must be tapped | Readable at a distance, scaling with printed size |
+| **Range** | A few centimetres: must be tapped | Readable at a distance, scaling with printed size |
 | **Capacity** | Several kilobytes | A few hundred characters |
 | **Security** | Harder to capture: proximity is required | Weaker: anything that can see it can copy it |
-| **Cost** | Higher — each tag is a physical chip | Near zero — it prints on anything |
+| **Cost** | Higher: each tag is a physical chip | Near zero: it prints on anything |
 | **Device support** | Uneven, and absent on some phones | Any phone with a camera |
 | **Duplication** | Hard, which is a feature for custody | Trivial, which is a hazard |
 
@@ -89,15 +89,15 @@ NFC is worth the money. Otherwise QR is the better default.
   directional. None of it is powered for a significance claim, and I have not
   made one.
 - **Error rates were not quantified.** The argument that scanning reduces
-  transcription error is mechanically sound — there is no transcription step to
-  get wrong — but I did not measure error rates, so this repository does not
+  transcription error is mechanically sound (there is no transcription step
+  to get wrong), but I did not measure error rates, so this repository does not
   report any.
 - **Re-entry time was not measured**, only observed to exist.
 - **The population was not representative.** Everyone involved was comfortable
   with a smartphone. The known failure mode for this kind of system is a user who
   is not, and that user was not in the sample.
 - **Technical failure modes are under-explored.** Camera focus in low light, a
-  dirty or curled label, a phone without NFC, a dead battery mid-round — each of
+  dirty or curled label, a phone without NFC, a dead battery mid-round: each of
   these is a data loss event that paper does not have.
 - **Privacy and custody.** A scannable code on a cage is readable by anyone who
   walks past it with a phone. Identifiers on a tag should be opaque, and the
@@ -117,7 +117,7 @@ NFC is worth the money. Otherwise QR is the better default.
    drive reminders and adherence checks, not just logging.
 4. **Design for the uncomfortable user**, since that is where adoption actually
    fails.
-5. **Look at BLE and RFID** where QR and NFC run out — longer range, no line of
+5. **Look at BLE and RFID** where QR and NFC run out: longer range, no line of
    sight, bulk reads of a whole rack at once.
 
 ## The app
@@ -125,14 +125,14 @@ NFC is worth the money. Otherwise QR is the better default.
 A single-page capture tool, in `docs/`. No build step, no server, no dependencies
 beyond two vendored libraries. Open it and it works.
 
-- **Generate** — turn a dosing record into a QR label you can print and attach.
-- **Scan** — read a label with the device camera and log it, timestamped.
-- **NFC** — read and write the same record to an NFC tag. Requires Web NFC, which
+- **Generate**: turn a dosing record into a QR label you can print and attach.
+- **Scan**: read a label with the device camera and log it, timestamped.
+- **NFC**: read and write the same record to an NFC tag. Requires Web NFC, which
   today means Chrome on Android; elsewhere the tab explains why it is unavailable
   rather than silently failing.
-- **Benchmark** — time yourself capturing events by each method and get your own
+- **Benchmark**: time yourself capturing events by each method and get your own
   version of the chart above, rather than trusting mine.
-- **Log** — everything captured, exportable as CSV or JSON.
+- **Log**: everything captured, exportable as CSV or JSON.
 
 Records stay in your browser's local storage. Nothing is uploaded, and there is no
 backend to upload to.
@@ -167,8 +167,8 @@ node test/roundtrip.js
 ```
 
 No test framework and no install. It exercises the wire format against awkward
-input — pipes inside values, quotes, non-ASCII, truncated and foreign payloads —
-and then does the real thing: encodes an event, renders it to an actual QR
+input (pipes inside values, quotes, non-ASCII, truncated and foreign
+payloads), and then does the real thing: encodes an event, renders it to an actual QR
 matrix, rasterises that to pixels, and decodes it back through the same scanner
 the app uses. If a label can be generated but not read, this fails.
 
@@ -195,7 +195,7 @@ hard part of the standardisation point above.
 
 See [`data/README.md`](data/README.md) for the full provenance. In short: the
 summary numbers in `user-acceptance.csv` and `capture-time-summary.csv` are what
-was observed. The per-event file `capture-events.csv` is **synthetic** — the
+was observed. The per-event file `capture-events.csv` is **synthetic**: the
 original per-event readings were not retained, so it is generated to sit inside
 the observed ranges purely so the analysis code can be run and reviewed. It is
 labelled as such in a `data_origin` column on every row. Do not cite it as a
@@ -224,14 +224,14 @@ measurement.
 ## Licence
 
 [PolyForm Noncommercial License 1.0.0](LICENSE.md). Free for research, teaching,
-personal and public-sector use. Commercial use requires a separate licence —
+personal and public-sector use. Commercial use requires a separate licence:
 contact me.
 
 The two vendored libraries in `docs/vendor/` keep their own licences.
 
 ## Author
 
-Falak Ameesh Patel — [falakpatel.com](https://falakpatel.com)
+Falak Ameesh Patel, [falakpatel.com](https://falakpatel.com)
 
 This work was my B.Pharm thesis, published 2023, at [Dr. D. Y. Patil College of
 Pharmacy, Akurdi](https://www.dyppharmaakurdi.ac.in/), affiliated to
