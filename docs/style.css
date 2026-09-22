@@ -1,0 +1,92 @@
+/* Typography and colour follow falakpatel.com deliberately: Times, black on
+   white, default-blue links, a 660px measure, no cards and no rounded corners. */
+html { color-scheme: light }
+body {
+  background: #ffffff; color: #000000; margin: 0; padding: 28px 18px 60px;
+  font: 17px/1.55 "Times New Roman", Times, serif;
+}
+.w { max-width: 660px; margin: 0 auto }
+
+h1 { font-size: 22px; font-weight: bold; margin: 0 0 2px }
+h2 { font-size: 17px; font-weight: bold; margin: 30px 0 8px }
+h3 { font-size: 17px; font-weight: bold; margin: 20px 0 6px }
+p  { margin: 0 0 13px }
+a  { color: #0000ee }
+a:visited { color: #551a8b }
+.sub  { margin: 0 0 2px }
+.meta { margin: 0 0 16px; color: #000 }
+.muted { color: #555555 }
+small { font-size: 15px }
+
+/* Tabs, styled as the inline text links they are */
+nav.tabs { margin: 18px 0 4px }
+nav.tabs button {
+  font: 17px/1.5 "Times New Roman", Times, serif;
+  background: none; border: 0; padding: 0; margin-right: 16px;
+  color: #0000ee; text-decoration: underline; cursor: pointer;
+}
+nav.tabs button[aria-current="true"] {
+  color: #000000; text-decoration: none; font-weight: bold; cursor: default;
+}
+hr { border: 0; border-top: 1px solid #dddddd; margin: 14px 0 22px }
+
+/* Forms */
+label { display: block; margin: 0 0 10px }
+label span { display: block; font-size: 15px; color: #555555; margin-bottom: 2px }
+input, select {
+  font: 17px/1.4 "Times New Roman", Times, serif;
+  padding: 4px 6px; border: 1px solid #999999; background: #ffffff; color: #000000;
+  width: 100%; box-sizing: border-box; border-radius: 0;
+}
+.row { display: flex; gap: 14px; flex-wrap: wrap }
+.row > label { flex: 1 1 150px }
+
+button.act {
+  font: 17px/1.5 "Times New Roman", Times, serif;
+  background: none; border: 0; padding: 0; margin: 0 16px 0 0;
+  color: #0000ee; text-decoration: underline; cursor: pointer;
+}
+button.act:disabled { color: #999999; text-decoration: none; cursor: default }
+.actions { margin: 4px 0 13px }
+
+/* Output surfaces */
+#qr-out { margin: 14px 0 8px }
+#qr-out img, #qr-out canvas { display: block; image-rendering: pixelated }
+video { display: block; width: 100%; max-width: 420px; background: #000000 }
+.payload {
+  font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+  word-break: break-all; color: #555555; margin: 0 0 13px;
+}
+.note { font-size: 15px; color: #555555; margin: 0 0 13px }
+.err  { font-size: 15px; color: #000000; margin: 0 0 13px }
+
+table { border-collapse: collapse; width: 100%; font-size: 15px; margin: 0 0 13px }
+th, td { text-align: left; padding: 4px 10px 4px 0; border-bottom: 1px solid #eeeeee;
+         vertical-align: top }
+th { font-weight: bold; white-space: nowrap }
+td.num { font-variant-numeric: tabular-nums }
+
+ul { margin: 0 0 13px; padding-left: 22px }
+li { margin-bottom: 5px }
+
+/* Benchmark chart */
+.chart { margin: 8px 0 13px }
+.chart .track { fill: none }
+.chart .bar { fill: #555555 }
+.chart .bar.you { fill: #0000ee }
+.chart text { font: 14px/1 "Times New Roman", Times, serif; fill: #000000 }
+.chart text.axis { fill: #555555 }
+.chart .grid { stroke: #e2e2e2; stroke-width: 1 }
+.chart g.mark:hover .bar { fill: #000000 }
+.chart g.mark.you:hover .bar { fill: #0000ee }
+
+.big { font-size: 22px; font-weight: bold; font-variant-numeric: tabular-nums }
+
+footer { margin-top: 34px; font-size: 15px }
+:focus-visible { outline: 2px solid #0000ee; outline-offset: 2px }
+
+@media (max-width: 520px) {
+  .row { display: block }
+  nav.tabs button { display: inline-block; margin-bottom: 6px }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important } }

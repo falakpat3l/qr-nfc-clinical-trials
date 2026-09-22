@@ -1,0 +1,181 @@
+event_id,arm,arm_label,cage_id,animal_id,event_index,capture_seconds,reentry_required,data_origin
+1,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A4,1,7.33,true,placeholder
+2,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A1,2,6.97,true,placeholder
+3,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A1,3,6.46,true,placeholder
+4,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A1,4,7.56,true,placeholder
+5,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A5,5,7.43,true,placeholder
+6,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A2,6,7.91,true,placeholder
+7,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A5,7,6.23,true,placeholder
+8,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A1,8,7.95,true,placeholder
+9,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A1,9,7.47,true,placeholder
+10,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A2,10,6.44,true,placeholder
+11,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A3,11,7.85,true,placeholder
+12,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A4,12,6.66,true,placeholder
+13,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A5,13,7.07,true,placeholder
+14,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A4,14,7.57,true,placeholder
+15,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A2,15,7.35,true,placeholder
+16,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A2,16,6.35,true,placeholder
+17,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A4,17,7.64,true,placeholder
+18,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A4,18,6.83,true,placeholder
+19,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A4,19,6.58,true,placeholder
+20,paper,Traditional pen and paper,PAPER-C1,PAPER-C1-A5,20,6.57,true,placeholder
+21,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A2,1,7.95,true,placeholder
+22,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A4,2,7.61,true,placeholder
+23,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A1,3,7.21,true,placeholder
+24,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A1,4,7.23,true,placeholder
+25,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A5,5,6.5,true,placeholder
+26,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A2,6,6.17,true,placeholder
+27,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A2,7,7.82,true,placeholder
+28,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A3,8,7.82,true,placeholder
+29,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A3,9,6.68,true,placeholder
+30,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A4,10,6.69,true,placeholder
+31,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A1,11,7.06,true,placeholder
+32,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A2,12,7.31,true,placeholder
+33,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A5,13,7.55,true,placeholder
+34,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A2,14,7.21,true,placeholder
+35,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A2,15,7.44,true,placeholder
+36,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A3,16,6.99,true,placeholder
+37,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A2,17,6.07,true,placeholder
+38,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A3,18,6.17,true,placeholder
+39,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A1,19,7.61,true,placeholder
+40,paper,Traditional pen and paper,PAPER-C2,PAPER-C2-A1,20,7.97,true,placeholder
+41,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A1,1,7.51,true,placeholder
+42,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A4,2,6.44,true,placeholder
+43,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A5,3,6.98,true,placeholder
+44,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A4,4,6.78,true,placeholder
+45,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A4,5,7.19,true,placeholder
+46,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A5,6,6.65,true,placeholder
+47,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A3,7,6.07,true,placeholder
+48,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A3,8,7.45,true,placeholder
+49,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A5,9,7.26,true,placeholder
+50,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A5,10,7.21,true,placeholder
+51,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A3,11,7.63,true,placeholder
+52,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A5,12,7.21,true,placeholder
+53,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A2,13,7.79,true,placeholder
+54,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A4,14,7.96,true,placeholder
+55,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A3,15,6.08,true,placeholder
+56,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A4,16,7.12,true,placeholder
+57,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A1,17,6.97,true,placeholder
+58,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A5,18,6.36,true,placeholder
+59,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A4,19,6.57,true,placeholder
+60,paper,Traditional pen and paper,PAPER-C3,PAPER-C3-A1,20,6.02,true,placeholder
+61,nfc,NFC tags,NFC-C1,NFC-C1-A1,1,5.4,false,placeholder
+62,nfc,NFC tags,NFC-C1,NFC-C1-A4,2,4.58,false,placeholder
+63,nfc,NFC tags,NFC-C1,NFC-C1-A4,3,3.6,false,placeholder
+64,nfc,NFC tags,NFC-C1,NFC-C1-A4,4,5.68,false,placeholder
+65,nfc,NFC tags,NFC-C1,NFC-C1-A4,5,4.51,false,placeholder
+66,nfc,NFC tags,NFC-C1,NFC-C1-A5,6,3.85,false,placeholder
+67,nfc,NFC tags,NFC-C1,NFC-C1-A2,7,5.24,false,placeholder
+68,nfc,NFC tags,NFC-C1,NFC-C1-A5,8,3.08,false,placeholder
+69,nfc,NFC tags,NFC-C1,NFC-C1-A1,9,4.7,false,placeholder
+70,nfc,NFC tags,NFC-C1,NFC-C1-A3,10,5.7,false,placeholder
+71,nfc,NFC tags,NFC-C1,NFC-C1-A5,11,3.1,false,placeholder
+72,nfc,NFC tags,NFC-C1,NFC-C1-A5,12,4.35,false,placeholder
+73,nfc,NFC tags,NFC-C1,NFC-C1-A1,13,3.71,false,placeholder
+74,nfc,NFC tags,NFC-C1,NFC-C1-A4,14,3.67,false,placeholder
+75,nfc,NFC tags,NFC-C1,NFC-C1-A1,15,3.47,false,placeholder
+76,nfc,NFC tags,NFC-C1,NFC-C1-A1,16,4.32,false,placeholder
+77,nfc,NFC tags,NFC-C1,NFC-C1-A3,17,5.91,false,placeholder
+78,nfc,NFC tags,NFC-C1,NFC-C1-A5,18,3.08,false,placeholder
+79,nfc,NFC tags,NFC-C1,NFC-C1-A3,19,4.69,false,placeholder
+80,nfc,NFC tags,NFC-C1,NFC-C1-A5,20,4.68,false,placeholder
+81,nfc,NFC tags,NFC-C2,NFC-C2-A5,1,5.6,false,placeholder
+82,nfc,NFC tags,NFC-C2,NFC-C2-A2,2,3.88,false,placeholder
+83,nfc,NFC tags,NFC-C2,NFC-C2-A1,3,3.02,false,placeholder
+84,nfc,NFC tags,NFC-C2,NFC-C2-A1,4,3.23,false,placeholder
+85,nfc,NFC tags,NFC-C2,NFC-C2-A3,5,3.62,false,placeholder
+86,nfc,NFC tags,NFC-C2,NFC-C2-A4,6,4.19,false,placeholder
+87,nfc,NFC tags,NFC-C2,NFC-C2-A5,7,3.27,false,placeholder
+88,nfc,NFC tags,NFC-C2,NFC-C2-A2,8,3.91,false,placeholder
+89,nfc,NFC tags,NFC-C2,NFC-C2-A1,9,3.32,false,placeholder
+90,nfc,NFC tags,NFC-C2,NFC-C2-A1,10,5.56,false,placeholder
+91,nfc,NFC tags,NFC-C2,NFC-C2-A5,11,4.77,false,placeholder
+92,nfc,NFC tags,NFC-C2,NFC-C2-A3,12,5.38,false,placeholder
+93,nfc,NFC tags,NFC-C2,NFC-C2-A5,13,5.14,false,placeholder
+94,nfc,NFC tags,NFC-C2,NFC-C2-A1,14,5.14,false,placeholder
+95,nfc,NFC tags,NFC-C2,NFC-C2-A5,15,5.88,false,placeholder
+96,nfc,NFC tags,NFC-C2,NFC-C2-A4,16,4.99,false,placeholder
+97,nfc,NFC tags,NFC-C2,NFC-C2-A4,17,5.73,false,placeholder
+98,nfc,NFC tags,NFC-C2,NFC-C2-A3,18,4.88,false,placeholder
+99,nfc,NFC tags,NFC-C2,NFC-C2-A4,19,4.7,false,placeholder
+100,nfc,NFC tags,NFC-C2,NFC-C2-A1,20,4.06,false,placeholder
+101,nfc,NFC tags,NFC-C3,NFC-C3-A3,1,3.69,false,placeholder
+102,nfc,NFC tags,NFC-C3,NFC-C3-A5,2,4.85,false,placeholder
+103,nfc,NFC tags,NFC-C3,NFC-C3-A1,3,5.84,false,placeholder
+104,nfc,NFC tags,NFC-C3,NFC-C3-A4,4,4.98,false,placeholder
+105,nfc,NFC tags,NFC-C3,NFC-C3-A5,5,3.62,false,placeholder
+106,nfc,NFC tags,NFC-C3,NFC-C3-A2,6,4.77,false,placeholder
+107,nfc,NFC tags,NFC-C3,NFC-C3-A5,7,3.54,false,placeholder
+108,nfc,NFC tags,NFC-C3,NFC-C3-A2,8,3.58,false,placeholder
+109,nfc,NFC tags,NFC-C3,NFC-C3-A3,9,3.92,false,placeholder
+110,nfc,NFC tags,NFC-C3,NFC-C3-A4,10,3.46,false,placeholder
+111,nfc,NFC tags,NFC-C3,NFC-C3-A5,11,5.21,false,placeholder
+112,nfc,NFC tags,NFC-C3,NFC-C3-A2,12,3.89,false,placeholder
+113,nfc,NFC tags,NFC-C3,NFC-C3-A4,13,5.37,false,placeholder
+114,nfc,NFC tags,NFC-C3,NFC-C3-A5,14,3.65,false,placeholder
+115,nfc,NFC tags,NFC-C3,NFC-C3-A2,15,3.63,false,placeholder
+116,nfc,NFC tags,NFC-C3,NFC-C3-A2,16,5.77,false,placeholder
+117,nfc,NFC tags,NFC-C3,NFC-C3-A5,17,4.89,false,placeholder
+118,nfc,NFC tags,NFC-C3,NFC-C3-A5,18,5.54,false,placeholder
+119,nfc,NFC tags,NFC-C3,NFC-C3-A5,19,5.85,false,placeholder
+120,nfc,NFC tags,NFC-C3,NFC-C3-A2,20,4.4,false,placeholder
+121,qr,QR codes,QR-C1,QR-C1-A1,1,2.91,false,placeholder
+122,qr,QR codes,QR-C1,QR-C1-A4,2,2.05,false,placeholder
+123,qr,QR codes,QR-C1,QR-C1-A3,3,2.68,false,placeholder
+124,qr,QR codes,QR-C1,QR-C1-A3,4,2.6,false,placeholder
+125,qr,QR codes,QR-C1,QR-C1-A5,5,1.92,false,placeholder
+126,qr,QR codes,QR-C1,QR-C1-A4,6,2.82,false,placeholder
+127,qr,QR codes,QR-C1,QR-C1-A2,7,1.69,false,placeholder
+128,qr,QR codes,QR-C1,QR-C1-A1,8,2.24,false,placeholder
+129,qr,QR codes,QR-C1,QR-C1-A1,9,1.02,false,placeholder
+130,qr,QR codes,QR-C1,QR-C1-A4,10,1.45,false,placeholder
+131,qr,QR codes,QR-C1,QR-C1-A3,11,2.44,false,placeholder
+132,qr,QR codes,QR-C1,QR-C1-A2,12,1.59,false,placeholder
+133,qr,QR codes,QR-C1,QR-C1-A4,13,2.16,false,placeholder
+134,qr,QR codes,QR-C1,QR-C1-A5,14,1.81,false,placeholder
+135,qr,QR codes,QR-C1,QR-C1-A1,15,1.74,false,placeholder
+136,qr,QR codes,QR-C1,QR-C1-A5,16,1.02,false,placeholder
+137,qr,QR codes,QR-C1,QR-C1-A4,17,2.11,false,placeholder
+138,qr,QR codes,QR-C1,QR-C1-A5,18,2.48,false,placeholder
+139,qr,QR codes,QR-C1,QR-C1-A2,19,2.32,false,placeholder
+140,qr,QR codes,QR-C1,QR-C1-A3,20,2.9,false,placeholder
+141,qr,QR codes,QR-C2,QR-C2-A1,1,1.02,false,placeholder
+142,qr,QR codes,QR-C2,QR-C2-A4,2,2.95,false,placeholder
+143,qr,QR codes,QR-C2,QR-C2-A4,3,2.98,false,placeholder
+144,qr,QR codes,QR-C2,QR-C2-A5,4,1.01,false,placeholder
+145,qr,QR codes,QR-C2,QR-C2-A1,5,1.66,false,placeholder
+146,qr,QR codes,QR-C2,QR-C2-A5,6,2.75,false,placeholder
+147,qr,QR codes,QR-C2,QR-C2-A4,7,1.28,false,placeholder
+148,qr,QR codes,QR-C2,QR-C2-A2,8,2.36,false,placeholder
+149,qr,QR codes,QR-C2,QR-C2-A2,9,1.47,false,placeholder
+150,qr,QR codes,QR-C2,QR-C2-A1,10,1.72,false,placeholder
+151,qr,QR codes,QR-C2,QR-C2-A4,11,2.43,false,placeholder
+152,qr,QR codes,QR-C2,QR-C2-A4,12,2.81,false,placeholder
+153,qr,QR codes,QR-C2,QR-C2-A2,13,1.61,false,placeholder
+154,qr,QR codes,QR-C2,QR-C2-A3,14,2.55,false,placeholder
+155,qr,QR codes,QR-C2,QR-C2-A2,15,1.69,false,placeholder
+156,qr,QR codes,QR-C2,QR-C2-A1,16,2.35,false,placeholder
+157,qr,QR codes,QR-C2,QR-C2-A5,17,2.92,false,placeholder
+158,qr,QR codes,QR-C2,QR-C2-A2,18,1.38,false,placeholder
+159,qr,QR codes,QR-C2,QR-C2-A4,19,2.01,false,placeholder
+160,qr,QR codes,QR-C2,QR-C2-A5,20,2.72,false,placeholder
+161,qr,QR codes,QR-C3,QR-C3-A1,1,2.2,false,placeholder
+162,qr,QR codes,QR-C3,QR-C3-A5,2,1.39,false,placeholder
+163,qr,QR codes,QR-C3,QR-C3-A5,3,1.39,false,placeholder
+164,qr,QR codes,QR-C3,QR-C3-A5,4,2.81,false,placeholder
+165,qr,QR codes,QR-C3,QR-C3-A1,5,2.75,false,placeholder
+166,qr,QR codes,QR-C3,QR-C3-A2,6,2.87,false,placeholder
+167,qr,QR codes,QR-C3,QR-C3-A3,7,1.96,false,placeholder
+168,qr,QR codes,QR-C3,QR-C3-A4,8,1.58,false,placeholder
+169,qr,QR codes,QR-C3,QR-C3-A5,9,1.58,false,placeholder
+170,qr,QR codes,QR-C3,QR-C3-A4,10,2.26,false,placeholder
+171,qr,QR codes,QR-C3,QR-C3-A1,11,2.77,false,placeholder
+172,qr,QR codes,QR-C3,QR-C3-A5,12,1.68,false,placeholder
+173,qr,QR codes,QR-C3,QR-C3-A4,13,1.98,false,placeholder
+174,qr,QR codes,QR-C3,QR-C3-A1,14,2.81,false,placeholder
+175,qr,QR codes,QR-C3,QR-C3-A3,15,2.34,false,placeholder
+176,qr,QR codes,QR-C3,QR-C3-A2,16,2.8,false,placeholder
+177,qr,QR codes,QR-C3,QR-C3-A5,17,1.48,false,placeholder
+178,qr,QR codes,QR-C3,QR-C3-A5,18,1.08,false,placeholder
+179,qr,QR codes,QR-C3,QR-C3-A3,19,1.46,false,placeholder
+180,qr,QR codes,QR-C3,QR-C3-A3,20,2.83,false,placeholder

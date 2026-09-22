@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR and NFC capture for clinical trials</title>
+<meta name="description" content="Offline capture tool for trial dosing events: generate and scan QR labels, read and write NFC tags, and benchmark capture time against pen and paper.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="w">
+
+<h1>QR and NFC capture for clinical trials</h1>
+<p class="sub">Record a dosing event by scanning it, instead of writing it down and typing it up later.</p>
+<p class="meta"><small>Everything stays in this browser. Nothing is uploaded, and there is no server to upload it to. &middot; <a href="https://github.com/FALAK-GITHUB-USERNAME/qr-nfc-clinical-trials">Source and study data</a></small></p>
+
+<nav class="tabs" role="tablist" aria-label="Sections">
+  <button role="tab" data-tab="generate"  aria-current="true">Generate</button>
+  <button role="tab" data-tab="scan">Scan</button>
+  <button role="tab" data-tab="nfc">NFC</button>
+  <button role="tab" data-tab="benchmark">Benchmark</button>
+  <button role="tab" data-tab="log">Log</button>
+</nav>
+<hr>
+
+<!-- ------------------------------------------------------------------ -->
+<section id="tab-generate" role="tabpanel">
+  <h2>Generate a label</h2>
+  <p>Fill in the event, print the code, attach it to the cage or the dosing sheet. Scanning it later writes the whole record in one action.</p>
+
+  <form id="gen-form" autocomplete="off">
+    <div class="row">
+      <label><span>Subject / animal ID</span><input name="sid" value="PAPER-C1-A1" required></label>
+      <label><span>Cage</span><input name="cage" value="PAPER-C1"></label>
+    </div>
+    <div class="row">
+      <label><span>Drug</span><input name="drug" value="Compound A"></label>
+      <label><span>Dose</span><input name="dose" value="10" inputmode="decimal"></label>
+      <label><span>Unit</span>
+        <select name="unit">
+          <option>mg/kg</option><option>mg</option><option>µg</option>
+          <option>mL</option><option>IU</option>
+        </select>
+      </label>
+    </div>
+    <div class="row">
+      <label><span>Route</span>
+        <select name="route">
+          <option>PO</option><option>IP</option><option>IV</option>
+          <option>SC</option><option>IM</option><option>Topical</option>
+        </select>
+      </label>
+      <label><span>Operator</span><input name="op" value="FP"></label>
+    </div>
+  </form>
+
+  <div class="actions">
+    <button class="act" id="gen-print">Print</button>
+    <button class="act" id="gen-png">Download PNG</button>
+    <button class="act" id="gen-log">Log this event</button>
+  </div>
+
+  <div id="qr-out"></div>
+  <p class="payload" id="gen-payload"></p>
+  <p class="note">The code carries the fields above as plain text, not a URL. It resolves without a network connection and points at no server.</p>
+</section>
+
+<!-- ------------------------------------------------------------------ -->
+<section id="tab-scan" role="tabpanel" hidden>
+  <h2>Scan a label</h2>
+  <p>Point the camera at a code. Each new code is logged once, with the time it was read.</p>
+  <div class="actions">
+    <button class="act" id="scan-start">Start camera</button>
+    <button class="act" id="scan-stop" disabled>Stop</button>
+  </div>
+  <p class="err" id="scan-msg"></p>
+  <video id="scan-video" playsinline muted hidden></video>
+  <canvas id="scan-canvas" hidden></canvas>
+  <div id="scan-last"></div>
+  <p class="note">The camera needs a secure context. This works on <code>localhost</code> and over HTTPS. Video never leaves the page &mdash; frames are decoded here and discarded.</p>
+</section>
+
+<!-- ------------------------------------------------------------------ -->
+<section id="tab-nfc" role="tabpanel" hidden>
+  <h2>NFC tags</h2>
+  <p id="nfc-support" class="err"></p>
+  <div class="actions">
+    <button class="act" id="nfc-read">Read a tag</button>
+    <button class="act" id="nfc-write">Write current event to a tag</button>
+    <button class="act" id="nfc-stop" disabled>Stop</button>
+  </div>
+  <p class="err" id="nfc-msg"></p>
+  <div id="nfc-last"></div>
+  <p class="note">A tag has to be physically tapped, so a reading is much harder to fabricate than a photographed code. That is the one thing NFC buys you over QR, and it costs about 3 seconds per event and the price of the tag.</p>
+</section>
+
+<!-- ------------------------------------------------------------------ -->
+<section id="tab-benchmark" role="tabpanel" hidden>
+  <h2>Time yourself</h2>
+  <p>Rather than trusting my numbers, measure your own. Pick a method, start the clock, and press <em>Captured</em> once per recorded observation. The gap between presses is one capture event.</p>
+
+  <div class="row">
+    <label><span>Method being timed</span>
+      <select id="bm-method">
+        <option value="qr">QR codes</option>
+        <option value="nfc">NFC tags</option>
+        <option value="paper">Traditional pen and paper</option>
+      </select>
+    </label>
+  </div>
+  <div class="actions">
+    <button class="act" id="bm-start">Start</button>
+    <button class="act" id="bm-mark" disabled>Captured</button>
+    <button class="act" id="bm-stop" disabled>Stop</button>
+    <button class="act" id="bm-reset">Reset</button>
+  </div>
+
+  <p><span class="big" id="bm-mean">&mdash;</span> <span class="muted">mean seconds per event, over <span id="bm-n">0</span> events</span></p>
+
+  <h3>Your result against the study</h3>
+  <div class="chart" id="bm-chart"></div>
+  <p class="note">Grey bars are the ranges observed in the study. The blue bar is you. Hover a bar for its numbers.</p>
+</section>
+
+<!-- ------------------------------------------------------------------ -->
+<section id="tab-log" role="tabpanel" hidden>
+  <h2>Captured events</h2>
+  <p><span id="log-count">0</span> records held in this browser.</p>
+  <div class="actions">
+    <button class="act" id="log-csv">Download CSV</button>
+    <button class="act" id="log-json">Download JSON</button>
+    <button class="act" id="log-clear">Clear all</button>
+  </div>
+  <div id="log-table"></div>
+</section>
+
+<footer>
+  <p class="muted">Falak Ameesh Patel &middot; <a href="https://falakpatel.com">falakpatel.com</a><br>
+  PolyForm Noncommercial 1.0.0. Free for research, teaching and public-sector use.</p>
+</footer>
+
+</div>
+<script src="vendor/qrcode-generator.js"></script>
+<script src="vendor/jsQR.js"></script>
+<script src="codec.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
