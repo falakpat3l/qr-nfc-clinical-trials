@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Capture app — QR and NFC for clinical trials</title>
 <meta name="description" content="Offline capture tool for trial dosing events: generate and scan QR labels, read and write NFC tags, and benchmark capture time against pen and paper.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 fill=%27%23fff%27/%3E%3Cg fill=%27%230000ee%27%3E%3Cpath d=%27M1 1h5v5H1V1zm1 1v3h3V2H2z%27/%3E%3Cpath d=%27M10 1h5v5h-5V1zm1 1v3h3V2h-3z%27/%3E%3Cpath d=%27M1 10h5v5H1v-5zm1 1v3h3v-3H2z%27/%3E%3Crect x=%273%27 y=%273%27 width=%271%27 height=%271%27/%3E%3Crect x=%2712%27 y=%273%27 width=%271%27 height=%271%27/%3E%3Crect x=%273%27 y=%2712%27 width=%271%27 height=%271%27/%3E%3Crect x=%278%27 y=%278%27 width=%272%27 height=%272%27/%3E%3Crect x=%2711%27 y=%278%27 width=%271%27 height=%271%27/%3E%3Crect x=%2713%27 y=%2710%27 width=%272%27 height=%271%27/%3E%3Crect x=%278%27 y=%2711%27 width=%271%27 height=%272%27/%3E%3Crect x=%2711%27 y=%2713%27 width=%272%27 height=%272%27/%3E%3C/g%3E%3C/svg%3E">
+<link rel="canonical" href="https://falakpat3l.github.io/qr-nfc-clinical-trials/app.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Capture app — QR and NFC for clinical trials">
+<meta property="og:description" content="Generate and scan QR labels, read and write NFC tags, and benchmark capture time against pen and paper. Runs offline, stores nothing remotely.">
+<meta property="og:url" content="https://falakpat3l.github.io/qr-nfc-clinical-trials/app.html">
+<meta property="og:image" content="https://falakpat3l.github.io/qr-nfc-clinical-trials/figures/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Falak Ameesh Patel">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,16 +25,16 @@
 <p class="meta"><small>Everything stays in this browser. Nothing is uploaded, and there is no server to upload it to. &middot; <a href="https://github.com/falakpat3l/qr-nfc-clinical-trials">Source</a></small></p>
 
 <nav class="tabs" role="tablist" aria-label="Sections">
-  <button role="tab" data-tab="generate"  aria-current="true">Generate</button>
-  <button role="tab" data-tab="scan">Scan</button>
-  <button role="tab" data-tab="nfc">NFC</button>
-  <button role="tab" data-tab="benchmark">Benchmark</button>
-  <button role="tab" data-tab="log">Log</button>
+  <button role="tab" id="t-generate" aria-controls="tab-generate" data-tab="generate" aria-current="true" aria-selected="true">Generate</button>
+  <button role="tab" id="t-scan" aria-controls="tab-scan" data-tab="scan" aria-selected="false">Scan</button>
+  <button role="tab" id="t-nfc" aria-controls="tab-nfc" data-tab="nfc" aria-selected="false">NFC</button>
+  <button role="tab" id="t-benchmark" aria-controls="tab-benchmark" data-tab="benchmark" aria-selected="false">Benchmark</button>
+  <button role="tab" id="t-log" aria-controls="tab-log" data-tab="log" aria-selected="false">Log</button>
 </nav>
 <hr>
 
 <!-- ------------------------------------------------------------------ -->
-<section id="tab-generate" role="tabpanel">
+<section id="tab-generate" role="tabpanel" tabindex="0" aria-labelledby="t-generate">
   <h2>Generate a label</h2>
   <p>Fill in the event, print the code, attach it to the cage or the dosing sheet. Scanning it later writes the whole record in one action.</p>
 
@@ -67,7 +76,7 @@
 </section>
 
 <!-- ------------------------------------------------------------------ -->
-<section id="tab-scan" role="tabpanel" hidden>
+<section id="tab-scan" role="tabpanel" tabindex="0" aria-labelledby="t-scan" hidden>
   <h2>Scan a label</h2>
   <p>Point the camera at a code. Each new code is logged once, with the time it was read.</p>
   <div class="actions">
@@ -82,7 +91,7 @@
 </section>
 
 <!-- ------------------------------------------------------------------ -->
-<section id="tab-nfc" role="tabpanel" hidden>
+<section id="tab-nfc" role="tabpanel" tabindex="0" aria-labelledby="t-nfc" hidden>
   <h2>NFC tags</h2>
   <p id="nfc-support" class="err"></p>
   <div class="actions">
@@ -96,9 +105,10 @@
 </section>
 
 <!-- ------------------------------------------------------------------ -->
-<section id="tab-benchmark" role="tabpanel" hidden>
+<section id="tab-benchmark" role="tabpanel" tabindex="0" aria-labelledby="t-benchmark" hidden>
   <h2>Time yourself</h2>
   <p>Rather than trusting my numbers, measure your own. Pick a method, start the clock, and press <em>Captured</em> once per recorded observation. The gap between presses is one capture event.</p>
+  <p class="note">Press <em>Start</em> as you reach the first subject, not before &mdash; the first interval is measured from that press, so any walking you do in between lands inside it.</p>
 
   <div class="row">
     <label><span>Method being timed</span>
@@ -124,7 +134,7 @@
 </section>
 
 <!-- ------------------------------------------------------------------ -->
-<section id="tab-log" role="tabpanel" hidden>
+<section id="tab-log" role="tabpanel" tabindex="0" aria-labelledby="t-log" hidden>
   <h2>Captured events</h2>
   <p><span id="log-count">0</span> records held in this browser.</p>
   <div class="actions">

@@ -68,6 +68,10 @@
     if (navigator.vibrate) { try { navigator.vibrate(40); } catch (e) {} }
   }
 
+  // stopNfc is defined with the NFC section below; the tab handler above needs
+  // it, and function-scoped `var` would be undefined at that point.
+  var stopNfc = function () {};
+
   // ------------------------------------------------------------------- tabs
   var tabs = Array.prototype.slice.call(document.querySelectorAll("nav.tabs button"));
   tabs.forEach(function (btn) {
@@ -75,9 +79,11 @@
       tabs.forEach(function (b) {
         var on = b === btn;
         b.setAttribute("aria-current", on ? "true" : "false");
+        b.setAttribute("aria-selected", on ? "true" : "false");
         $("#tab-" + b.dataset.tab).hidden = !on;
       });
       if (btn.dataset.tab !== "scan") stopScan();
+      if (btn.dataset.tab !== "nfc") stopNfc();
       if (btn.dataset.tab === "benchmark") renderChart();
     });
   });
@@ -150,7 +156,11 @@
   $("#gen-print").addEventListener("click", function () {
     if (!lastQR) return;
     var w = window.open("", "_blank", "width=420,height=560");
-    if (!w) return;
+    if (!w) {
+      window.alert("The print window was blocked. Allow popups for this page, " +
+                   "or use Download PNG and print that.");
+      return;
+    }
     w.document.write(
       '<!doctype html><title>Label</title>' +
       '<style>body{font:14px/1.4 "Times New Roman",Times,serif;text-align:center;' +
@@ -213,11 +223,18 @@
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
       var w = video.videoWidth, h = video.videoHeight;
       if (w && h) {
-        canvas.width = w; canvas.height = h;
+        // Decode a downscaled frame. A 1080p frame is ~8M pixels to read back
+        // and scan 60 times a second; 640px wide is ample for a code held at
+        // arm's length and keeps this smooth on a mid-range phone.
+        var k = Math.min(1, 640 / w);
+        var cw = Math.max(1, Math.round(w * k)), ch = Math.max(1, Math.round(h * k));
+        if (canvas.width !== cw || canvas.height !== ch) {
+          canvas.width = cw; canvas.height = ch;
+        }
         var ctx = canvas.getContext("2d", { willReadFrequently: true });
-        ctx.drawImage(video, 0, 0, w, h);
-        var img = ctx.getImageData(0, 0, w, h);
-        var hit = window.jsQR ? jsQR(img.data, w, h, { inversionAttempts: "dontInvert" }) : null;
+        ctx.drawImage(video, 0, 0, cw, ch);
+        var img = ctx.getImageData(0, 0, cw, ch);
+        var hit = window.jsQR ? jsQR(img.data, cw, ch, { inversionAttempts: "dontInvert" }) : null;
         if (hit && hit.data) handleCode(hit.data);
       }
     }
@@ -319,11 +336,18 @@
     } catch (e) { nfcMsg("Write failed: " + e.message); }
   });
 
-  $("#nfc-stop").addEventListener("click", function () {
-    if (nfcAbort) { nfcAbort.abort(); nfcAbort = null; }
-    $("#nfc-stop").disabled = true;
-    nfcMsg("Stopped.");
-  });
+  stopNfc = function (quiet) {
+    if (nfcAbort) {
+      try { nfcAbort.abort(); } catch (e) {}
+      nfcAbort = null;
+      if (!quiet) nfcMsg("Stopped.");
+    }
+    var stop = $("#nfc-stop");
+    if (stop) stop.disabled = true;
+  };
+
+  $("#nfc-stop").addEventListener("click", function () { stopNfc(); });
+  window.addEventListener("pagehide", function () { stopNfc(true); });
 
   // -------------------------------------------------------------- benchmark
   var bm = { running: false, last: 0, samples: [] };
@@ -346,6 +370,8 @@
     $("#bm-mean").textContent = st ? st.mean.toFixed(1) : "—";
     renderChart();
   }
+
+  $("#bm-method").addEventListener("change", renderChart);
 
   $("#bm-start").addEventListener("click", function () {
     bm.running = true; bm.last = performance.now();
