@@ -4,6 +4,10 @@ A study of whether scanning a code beats writing on a clipboard when you are
 recording dosing events in a trial, and a small offline web app that implements
 the faster of the two.
 
+My B.Pharm thesis, published 2023 — [Dr. D. Y. Patil College of Pharmacy,
+Akurdi](https://www.dyppharmaakurdi.ac.in/), [Savitribai Phule Pune
+University](https://www.unipune.ac.in/).
+
 **[Read the write-up →](https://falakpat3l.github.io/qr-nfc-clinical-trials/)** · **[Open the capture app →](https://falakpat3l.github.io/qr-nfc-clinical-trials/app.html)**
 
 ---
@@ -228,3 +232,7 @@ The two vendored libraries in `docs/vendor/` keep their own licences.
 ## Author
 
 Falak Ameesh Patel — [falakpatel.com](https://falakpatel.com)
+
+This work was my B.Pharm thesis, published 2023, at [Dr. D. Y. Patil College of
+Pharmacy, Akurdi](https://www.dyppharmaakurdi.ac.in/), affiliated to
+[Savitribai Phule Pune University](https://www.unipune.ac.in/).
