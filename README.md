@@ -5,8 +5,8 @@ recording dosing events in a trial, and a small offline web app that implements
 the faster of the two.
 
 My B.Pharm thesis, published 2023, at [Dr. D. Y. Patil College of Pharmacy,
-Akurdi](https://www.dyppharmaakurdi.ac.in/), [Savitribai Phule Pune
-University](https://www.unipune.ac.in/).
+Akurdi](https://www.dyppharmaakurdi.ac.in/), affiliated to [Savitribai Phule
+Pune University](https://www.unipune.ac.in/).
 
 **[Read the write-up →](https://falakpat3l.github.io/qr-nfc-clinical-trials/)** · **[Open the capture app →](https://falakpat3l.github.io/qr-nfc-clinical-trials/app.html)**
 
