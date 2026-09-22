@@ -3,146 +3,106 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QR and NFC capture for clinical trials</title>
-<meta name="description" content="Offline capture tool for trial dosing events: generate and scan QR labels, read and write NFC tags, and benchmark capture time against pen and paper.">
+<title>QR and NFC data capture for clinical trials</title>
+<meta name="description" content="Whether scanning a code beats writing on a clipboard when recording dosing events in a trial, and an offline capture tool that implements the faster of the two.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="w">
 
-<h1>QR and NFC capture for clinical trials</h1>
-<p class="sub">Record a dosing event by scanning it, instead of writing it down and typing it up later.</p>
-<p class="meta"><small>Everything stays in this browser. Nothing is uploaded, and there is no server to upload it to. &middot; <a href="https://github.com/FALAK-GITHUB-USERNAME/qr-nfc-clinical-trials">Source and study data</a></small></p>
+<h1>QR and NFC data capture for clinical trials</h1>
+<p class="sub">Whether scanning a code beats writing on a clipboard when you are recording dosing events, and a small tool that implements the faster of the two.</p>
+<p class="meta">Falak Ameesh Patel &middot; <a href="https://falakpatel.com">falakpatel.com</a></p>
 
-<nav class="tabs" role="tablist" aria-label="Sections">
-  <button role="tab" data-tab="generate"  aria-current="true">Generate</button>
-  <button role="tab" data-tab="scan">Scan</button>
-  <button role="tab" data-tab="nfc">NFC</button>
-  <button role="tab" data-tab="benchmark">Benchmark</button>
-  <button role="tab" data-tab="log">Log</button>
-</nav>
-<hr>
+<p><strong><a href="app.html">Open the capture app &rarr;</a></strong> &nbsp; <span class="muted">&middot;</span> &nbsp; <a href="https://github.com/FALAK-GITHUB-USERNAME/qr-nfc-clinical-trials">Source and data on GitHub</a></p>
 
-<!-- ------------------------------------------------------------------ -->
-<section id="tab-generate" role="tabpanel">
-  <h2>Generate a label</h2>
-  <p>Fill in the event, print the code, attach it to the cage or the dosing sheet. Scanning it later writes the whole record in one action.</p>
+<h2>The problem</h2>
+<p>Trial data still gets written on paper. The cost is not the writing &mdash; it is that someone later has to type the same numbers into a computer a second time. That second pass is where the hours and the transcription errors come from, and it is invisible in any measurement that only times the original act of writing.</p>
+<p>Both QR codes and NFC tags remove the second pass. You scan, and the record is already structured and already timestamped. The question here is how much that actually saves, and which of the two is the better bet.</p>
 
-  <form id="gen-form" autocomplete="off">
-    <div class="row">
-      <label><span>Subject / animal ID</span><input name="sid" value="PAPER-C1-A1" required></label>
-      <label><span>Cage</span><input name="cage" value="PAPER-C1"></label>
-    </div>
-    <div class="row">
-      <label><span>Drug</span><input name="drug" value="Compound A"></label>
-      <label><span>Dose</span><input name="dose" value="10" inputmode="decimal"></label>
-      <label><span>Unit</span>
-        <select name="unit">
-          <option>mg/kg</option><option>mg</option><option>µg</option>
-          <option>mL</option><option>IU</option>
-        </select>
-      </label>
-    </div>
-    <div class="row">
-      <label><span>Route</span>
-        <select name="route">
-          <option>PO</option><option>IP</option><option>IV</option>
-          <option>SC</option><option>IM</option><option>Topical</option>
-        </select>
-      </label>
-      <label><span>Operator</span><input name="op" value="FP"></label>
-    </div>
-  </form>
+<h2>Time to record one observation</h2>
+<img src="figures/fig2-capture-time.svg" alt="Range chart. QR codes 1 to 3 seconds, NFC tags 3 to 6 seconds, traditional pen and paper 6 to 8 seconds per capture event." style="width:100%;max-width:660px;display:block;margin:0 0 8px">
 
-  <div class="actions">
-    <button class="act" id="gen-print">Print</button>
-    <button class="act" id="gen-png">Download PNG</button>
-    <button class="act" id="gen-log">Log this event</button>
-  </div>
+<table>
+<thead><tr><th>Method</th><th>Seconds per event</th><th>Needs later re-entry</th></tr></thead>
+<tbody>
+<tr><td>QR codes</td><td class="num">1&ndash;3</td><td>No</td></tr>
+<tr><td>NFC tags</td><td class="num">3&ndash;6</td><td>No</td></tr>
+<tr><td>Traditional pen and paper</td><td class="num">6&ndash;8</td><td><strong>Yes</strong></td></tr>
+</tbody>
+</table>
 
-  <div id="qr-out"></div>
-  <p class="payload" id="gen-payload"></p>
-  <p class="note">The code carries the fields above as plain text, not a URL. It resolves without a network connection and points at no server.</p>
-</section>
+<p>QR scanning was roughly two to three times faster per event than writing by hand, and NFC sat between the two. The re-entry column matters more than the seconds column: the paper arm is the only one that incurs a whole second pass over every record, so the real gap in total labour is wider than these numbers show. I did not time the re-entry pass, so I am not going to put a figure on it.</p>
 
-<!-- ------------------------------------------------------------------ -->
-<section id="tab-scan" role="tabpanel" hidden>
-  <h2>Scan a label</h2>
-  <p>Point the camera at a code. Each new code is logged once, with the time it was read.</p>
-  <div class="actions">
-    <button class="act" id="scan-start">Start camera</button>
-    <button class="act" id="scan-stop" disabled>Stop</button>
-  </div>
-  <p class="err" id="scan-msg"></p>
-  <video id="scan-video" playsinline muted hidden></video>
-  <canvas id="scan-canvas" hidden></canvas>
-  <div id="scan-last"></div>
-  <p class="note">The camera needs a secure context. This works on <code>localhost</code> and over HTTPS. Video never leaves the page &mdash; frames are decoded here and discarded.</p>
-</section>
+<h2>What people preferred after trying all three</h2>
+<img src="figures/fig1-user-acceptance.svg" alt="Bar chart. Of ten respondents, four preferred QR codes, four preferred traditional pen and paper, and two preferred NFC tags." style="width:100%;max-width:660px;display:block;margin:0 0 8px">
 
-<!-- ------------------------------------------------------------------ -->
-<section id="tab-nfc" role="tabpanel" hidden>
-  <h2>NFC tags</h2>
-  <p id="nfc-support" class="err"></p>
-  <div class="actions">
-    <button class="act" id="nfc-read">Read a tag</button>
-    <button class="act" id="nfc-write">Write current event to a tag</button>
-    <button class="act" id="nfc-stop" disabled>Stop</button>
-  </div>
-  <p class="err" id="nfc-msg"></p>
-  <div id="nfc-last"></div>
-  <p class="note">A tag has to be physically tapped, so a reading is much harder to fabricate than a photographed code. That is the one thing NFC buys you over QR, and it costs about 3 seconds per event and the price of the tag.</p>
-</section>
+<p>Ten people doing pre-clinical research used all three methods and then chose one. <strong>Preference split evenly between QR and paper.</strong></p>
 
-<!-- ------------------------------------------------------------------ -->
-<section id="tab-benchmark" role="tabpanel" hidden>
-  <h2>Time yourself</h2>
-  <p>Rather than trusting my numbers, measure your own. Pick a method, start the clock, and press <em>Captured</em> once per recorded observation. The gap between presses is one capture event.</p>
+<p>This is the result people usually skip past, and it is the most interesting one here: being measurably faster did not make QR the preferred method. Four of ten still wanted the clipboard. With n&nbsp;=&nbsp;10 this is directional at best and carries no statistical weight, but it points at something real &mdash; the barrier to electronic capture in the animal house is habit and trust, not speed. Any rollout that assumes people will switch because the stopwatch says so is going to be disappointed.</p>
 
-  <div class="row">
-    <label><span>Method being timed</span>
-      <select id="bm-method">
-        <option value="qr">QR codes</option>
-        <option value="nfc">NFC tags</option>
-        <option value="paper">Traditional pen and paper</option>
-      </select>
-    </label>
-  </div>
-  <div class="actions">
-    <button class="act" id="bm-start">Start</button>
-    <button class="act" id="bm-mark" disabled>Captured</button>
-    <button class="act" id="bm-stop" disabled>Stop</button>
-    <button class="act" id="bm-reset">Reset</button>
-  </div>
+<h2>QR or NFC?</h2>
+<p>They are not interchangeable, and the right answer depends on what the site actually needs.</p>
 
-  <p><span class="big" id="bm-mean">&mdash;</span> <span class="muted">mean seconds per event, over <span id="bm-n">0</span> events</span></p>
+<table>
+<thead><tr><th></th><th>NFC tags</th><th>QR codes</th></tr></thead>
+<tbody>
+<tr><th>Mechanism</th><td>Short-range radio between two devices</td><td>Two-dimensional barcode read by a camera</td></tr>
+<tr><th>Range</th><td>A few centimetres &mdash; must be tapped</td><td>Readable at a distance, scaling with printed size</td></tr>
+<tr><th>Capacity</th><td>Several kilobytes</td><td>A few hundred characters</td></tr>
+<tr><th>Security</th><td>Harder to capture: proximity is required</td><td>Weaker: anything that can see it can copy it</td></tr>
+<tr><th>Cost</th><td>Higher &mdash; each tag is a physical chip</td><td>Near zero &mdash; it prints on anything</td></tr>
+<tr><th>Device support</th><td>Uneven, and absent on some phones</td><td>Any phone with a camera</td></tr>
+<tr><th>Duplication</th><td>Hard, which is a feature for custody</td><td>Trivial, which is a hazard</td></tr>
+</tbody>
+</table>
 
-  <h3>Your result against the study</h3>
-  <div class="chart" id="bm-chart"></div>
-  <p class="note">Grey bars are the ranges observed in the study. The blue bar is you. Hover a bar for its numbers.</p>
-</section>
+<p>In practice QR won on speed, cost and the fact that it works on every phone anyone brought. NFC's advantage is real but narrow: because a tag has to be physically tapped, it is much harder to fabricate a reading you did not take. If your risk is someone photographing a code and recording doses they never gave, NFC is worth the money. Otherwise QR is the better default.</p>
 
-<!-- ------------------------------------------------------------------ -->
-<section id="tab-log" role="tabpanel" hidden>
-  <h2>Captured events</h2>
-  <p><span id="log-count">0</span> records held in this browser.</p>
-  <div class="actions">
-    <button class="act" id="log-csv">Download CSV</button>
-    <button class="act" id="log-json">Download JSON</button>
-    <button class="act" id="log-clear">Clear all</button>
-  </div>
-  <div id="log-table"></div>
-</section>
+<h2>What this does not show</h2>
+<ul>
+<li><strong>Sample size.</strong> Ten respondents, and three cages per arm. Everything here is directional. None of it is powered for a significance claim, and I have not made one.</li>
+<li><strong>Error rates were not quantified.</strong> The argument that scanning reduces transcription error is mechanically sound &mdash; there is no transcription step to get wrong &mdash; but I did not measure error rates, so none are reported.</li>
+<li><strong>Re-entry time was not measured</strong>, only observed to exist.</li>
+<li><strong>The population was not representative.</strong> Everyone involved was comfortable with a smartphone. The known failure mode for this kind of system is a user who is not, and that user was not in the sample.</li>
+<li><strong>Technical failure modes are under-explored.</strong> Camera focus in low light, a dirty or curled label, a phone without NFC, a dead battery mid-round &mdash; each is a data loss event that paper does not have.</li>
+<li><strong>Privacy and custody.</strong> A scannable code on a cage is readable by anyone who walks past it with a phone. Identifiers should be opaque and the mapping held elsewhere. The app here stores data only in your own browser and transmits nothing, which sidesteps the question rather than answering it.</li>
+</ul>
+
+<h2>Where this should go next</h2>
+<ol>
+<li><strong>Standardise the payload.</strong> The gain evaporates if every site invents its own encoding. What is needed is an agreed field set for a dosing event, so a scanner from one group reads a label from another.</li>
+<li><strong>Write into the record system directly.</strong> Capture that terminates in a CSV on someone's laptop has moved the re-entry problem rather than removed it. The destination has to be the EDC or EHR.</li>
+<li><strong>Personalise the label.</strong> A code carrying subject, drug, dose and schedule can drive reminders and adherence checks, not just logging.</li>
+<li><strong>Design for the uncomfortable user</strong>, since that is where adoption actually fails.</li>
+<li><strong>Look at BLE and RFID</strong> where QR and NFC run out &mdash; longer range, no line of sight, bulk reads of a whole rack at once.</li>
+</ol>
+
+<h2>The label format</h2>
+<p>A dosing event is encoded as pipe-delimited plain text:</p>
+<p class="payload">CTDE1|subject|cage|drug|dose|unit|route|operator</p>
+<p>Plain text rather than a URL, because a label that resolves to a server is useless without signal and phones home for no reason. Pipe-delimited rather than JSON, because at QR sizes the punctuation is a real cost. Every field is percent-encoded, so a pipe inside a value cannot split the record. <code>CTDE1</code> is a version marker, so a later <code>CTDE2</code> can change the field list without old and new labels being confused.</p>
+<p>This is the part that would have to be agreed between sites for one group's scanner to read another group's labels. That agreement, not the scanning, is the hard part of the standardisation point above.</p>
+
+<h2>The app</h2>
+<p><a href="app.html">A single-page capture tool.</a> No build step, no server, no network. Open it and it works.</p>
+<ul>
+<li><strong>Generate</strong> &mdash; turn a dosing record into a QR label you can print and attach.</li>
+<li><strong>Scan</strong> &mdash; read a label with the device camera and log it, timestamped.</li>
+<li><strong>NFC</strong> &mdash; read and write the same record to a tag. Needs Web NFC, which today means Chrome on Android; elsewhere it explains why rather than failing silently.</li>
+<li><strong>Benchmark</strong> &mdash; time yourself and get your own version of the chart above, rather than trusting mine.</li>
+<li><strong>Log</strong> &mdash; everything captured, exportable as CSV or JSON.</li>
+</ul>
+<p>Records stay in your browser's local storage. Nothing is uploaded, and there is no backend to upload to. The camera and NFC both need a secure context, so use this page over HTTPS or on <code>localhost</code>.</p>
+
+<h2>Data and code</h2>
+<p>The observed summaries, the figure-rendering code, the label format and a browser-free test that encodes an event, renders it to a real QR matrix and scans it back are all <a href="https://github.com/FALAK-GITHUB-USERNAME/qr-nfc-clinical-trials">on GitHub</a>. The per-event dataset in that repository is synthetic and labelled as such on every row &mdash; the original per-event readings were not retained, so it exists to let the analysis code run, not as evidence.</p>
 
 <footer>
-  <p class="muted">Falak Ameesh Patel &middot; <a href="https://falakpatel.com">falakpatel.com</a><br>
-  PolyForm Noncommercial 1.0.0. Free for research, teaching and public-sector use.</p>
+<p class="muted">Falak Ameesh Patel &middot; <a href="https://falakpatel.com">falakpatel.com</a><br>
+PolyForm Noncommercial 1.0.0. Free for research, teaching and public-sector use.</p>
 </footer>
 
 </div>
-<script src="vendor/qrcode-generator.js"></script>
-<script src="vendor/jsQR.js"></script>
-<script src="codec.js"></script>
-<script src="app.js"></script>
 </body>
 </html>

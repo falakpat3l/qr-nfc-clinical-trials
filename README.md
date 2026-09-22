@@ -4,7 +4,7 @@ A study of whether scanning a code beats writing on a clipboard when you are
 recording dosing events in a trial, and a small offline web app that implements
 the faster of the two.
 
-**[Open the capture app →](https://FALAK-GITHUB-USERNAME.github.io/qr-nfc-clinical-trials/)**
+**[Read the write-up →](https://FALAK-GITHUB-USERNAME.github.io/qr-nfc-clinical-trials/)** · **[Open the capture app →](https://FALAK-GITHUB-USERNAME.github.io/qr-nfc-clinical-trials/app.html)**
 
 ---
 
@@ -200,11 +200,13 @@ measurement.
 ## Repository layout
 
 ```
-├── docs/              the capture app, served by GitHub Pages
-│   ├── index.html
+├── docs/              the site, served by GitHub Pages
+│   ├── index.html     the write-up
+│   ├── app.html       the capture tool
 │   ├── app.js         UI, camera, NFC, benchmark, log
 │   ├── codec.js       the CTDE1 wire format, standalone and testable
 │   ├── style.css
+│   ├── figures/
 │   └── vendor/        jsQR (Apache-2.0), qrcode-generator (MIT)
 ├── data/              observed summaries + synthetic per-event data
 ├── analysis/          data generation and figure rendering

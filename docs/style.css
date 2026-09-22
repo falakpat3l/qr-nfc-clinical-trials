@@ -90,3 +90,11 @@ footer { margin-top: 34px; font-size: 15px }
   nav.tabs button { display: inline-block; margin-bottom: 6px }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important } }
+
+/* Write-up page: tables carry real content here, so give them air */
+table th[scope], tbody th { font-weight: bold; padding-right: 14px }
+td, th { padding: 6px 12px 6px 0 }
+ol { margin: 0 0 13px; padding-left: 22px }
+ol li { margin-bottom: 5px }
+code { font: 15px/1.4 ui-monospace, "SF Mono", Menlo, monospace }
+img { max-width: 100% }
