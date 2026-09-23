@@ -51,6 +51,9 @@ plt.rcParams.update({
     "figure.facecolor": SURFACE,
     "axes.facecolor": SURFACE,
     "savefig.facecolor": SURFACE,
+    # Stable SVG output: fixed ids and no timestamp, so re-running the
+    # script on unchanged data leaves git with nothing to commit.
+    "svg.hashsalt": "ctde1",
 })
 
 
@@ -94,7 +97,7 @@ def fig_user_acceptance():
                  fontsize=12, fontweight="bold", loc="left", pad=12)
 
     fig.tight_layout()
-    fig.savefig(OUT / "fig1-user-acceptance.svg", bbox_inches="tight")
+    fig.savefig(OUT / "fig1-user-acceptance.svg", bbox_inches="tight", metadata={"Date": None})
     fig.savefig(OUT / "fig1-user-acceptance.png", bbox_inches="tight")
     plt.close(fig)
 
@@ -134,7 +137,7 @@ def fig_capture_time():
              "Pen and paper additionally requires later re-entry into a computer, "
              "which is not counted here.",
              fontsize=9, color=MUTED, ha="left", va="top")
-    fig.savefig(OUT / "fig2-capture-time.svg", bbox_inches="tight")
+    fig.savefig(OUT / "fig2-capture-time.svg", bbox_inches="tight", metadata={"Date": None})
     fig.savefig(OUT / "fig2-capture-time.png", bbox_inches="tight")
     plt.close(fig)
 
