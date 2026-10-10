@@ -155,6 +155,13 @@
 <script src="vendor/qrcode-generator.js"></script>
 <script src="vendor/jsQR.js"></script>
 <script src="codec.js"></script>
-<script src="app.js"></script>
+<!-- The app, one file per tab. Order matters: common.js first, main.js last. -->
+<script src="app/common.js"></script>
+<script src="app/generate.js"></script>
+<script src="app/scan.js"></script>
+<script src="app/nfc.js"></script>
+<script src="app/benchmark.js"></script>
+<script src="app/log.js"></script>
+<script src="app/main.js"></script>
 </body>
 </html>

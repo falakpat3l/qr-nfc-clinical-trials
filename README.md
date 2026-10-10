@@ -12,6 +12,8 @@ Pune University](https://www.unipune.ac.in/).
 
 ---
 
+**New to the code?** Start with [GUIDE.md](GUIDE.md), a plain-English tour of how it works and where to make changes.
+
 ## The problem
 
 Trial data still gets written on paper. The cost is not the writing: it is that
@@ -207,7 +209,14 @@ measurement.
 ├── docs/              the site, served by GitHub Pages
 │   ├── index.html     the write-up
 │   ├── app.html       the capture tool
-│   ├── app.js         UI, camera, NFC, benchmark, log
+│   ├── app/           the capture tool's code, one file per tab:
+│   │   ├── common.js    saved events and small helpers (loaded first)
+│   │   ├── generate.js  form to QR label
+│   │   ├── scan.js      camera scanning
+│   │   ├── nfc.js       NFC tags
+│   │   ├── benchmark.js timing yourself, and the chart
+│   │   ├── log.js       the table and CSV / JSON export
+│   │   └── main.js      tab switching and start-up (loaded last)
 │   ├── codec.js       the CTDE1 wire format, standalone and testable
 │   ├── style.css
 │   ├── figures/
