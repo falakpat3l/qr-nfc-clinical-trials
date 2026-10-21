@@ -54,6 +54,14 @@ check("rejects a truncated payload", () => {
   assert.throws(() => CTDE.decodeEvent("CTDE1|a|b"), /Wrong field count/);
 });
 
+check("rejects a broken percent-encoding with a clear message", () => {
+  assert.throws(() => CTDE.decodeEvent("CTDE1|A1|C1|50%|10|mg|PO|FP"), /Field "drug" is not encoded correctly/);
+});
+
+check("ignores a trailing newline from a tag or scanner", () => {
+  assert.deepStrictEqual(CTDE.decodeEvent(CTDE.encodeEvent(SAMPLE) + "\n"), SAMPLE);
+});
+
 console.log("qr round trip");
 
 // Render the QR matrix to RGBA pixels the way a camera frame would arrive.

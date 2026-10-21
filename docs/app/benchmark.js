@@ -72,40 +72,54 @@ function renderChart() {
     return { key: r.key, label: r.label, lo: r.lo, hi: r.hi, you: false };
   });
   if (st) {
+    // Short label, so it fits beside the bar on a phone. The tooltip has the full name.
     const m = $("#bm-method");
-    const name = m.options[m.selectedIndex].text;
-    rows.push({ key: "you", label: "You: " + name, lo: st.lo, hi: st.hi, mean: st.mean, you: true });
+    const short = { qr: "You (QR)", nfc: "You (NFC)", paper: "You (paper)" }[m.value] || "You";
+    rows.push({ key: "you", label: short, name: "You, " + m.options[m.selectedIndex].text,
+                lo: st.lo, hi: st.hi, mean: st.mean, you: true });
   }
 
-  // Layout in SVG units. x(seconds) gives the horizontal position for a value.
-  const W = 640, rowH = 34, padL = 150, padR = 60, padT = 8, padB = 30;
+  // Layout in SVG units, matched to the real width so text stays 14 px on a
+  // phone instead of shrinking. x(seconds) gives the horizontal position.
+  const box = $("#bm-chart");
+  const W = Math.max(280, Math.min(660, box.clientWidth || 640));
+  const narrow = W < 480;
+  const rowH = 34, padL = narrow ? 96 : 130, padR = narrow ? 58 : 70, padT = 8, padB = 42;
   const H = padT + rows.length * rowH + padB;
   const max = Math.max(10, Math.ceil(Math.max.apply(null, rows.map(function (r) { return r.hi; })) + 1));
   const x = function (v) { return padL + (v / max) * (W - padL - padR); };
+  // Tick spacing that gives at most about 6 numbers along the axis.
+  const step = [2, 5, 10, 20, 30, 60, 120, 300, 600].filter(function (s) {
+    return max / s <= (narrow ? 5 : 6);
+  })[0] || 1200;
 
   const parts = [];
-  parts.push('<svg viewBox="0 0 ' + W + " " + H + '" width="100%" role="img" ' +
-             'aria-label="Seconds per capture event by method">');
+  parts.push('<svg viewBox="0 0 ' + W + " " + H + '" width="' + W + '" height="' + H +
+             '" role="img" aria-label="Seconds per capture event by method">');
 
-  // Grid lines and numbers along the bottom, every 2 seconds.
-  for (let t = 0; t <= max; t += 2) {
+  // Grid lines and numbers along the bottom.
+  for (let t = 0; t <= max; t += step) {
     parts.push('<line class="grid" x1="' + x(t) + '" y1="' + padT +
                '" x2="' + x(t) + '" y2="' + (H - padB) + '"/>');
     parts.push('<text class="axis" x="' + x(t) + '" y="' + (H - padB + 18) +
                '" text-anchor="middle">' + t + "</text>");
   }
-  parts.push('<text class="axis" x="' + padL + '" y="' + (H - 2) + '">seconds per event</text>');
+  parts.push('<text class="axis" x="' + padL + '" y="' + (H - 4) + '">seconds per event</text>');
 
   // One row per method: label on the left, bar from fastest to slowest, range on the right.
   rows.forEach(function (r, i) {
     const cy = padT + i * rowH + rowH / 2;
     const w = Math.max(3, x(r.hi) - x(r.lo));
-    const tip = r.label + ": " + r.lo.toFixed(1) + "–" + r.hi.toFixed(1) + " s" +
+    const tip = (r.name || r.label) + ": " + r.lo.toFixed(1) + "–" + r.hi.toFixed(1) + " s" +
                 (r.mean != null ? " (mean " + r.mean.toFixed(1) + " s)" : "");
     parts.push('<g class="mark' + (r.you ? " you" : "") + '">');
     parts.push("<title>" + esc(tip) + "</title>");
     parts.push('<rect class="bar ' + r.key + '" x="' + x(r.lo) +
                '" y="' + (cy - 5) + '" width="' + w + '" height="10" rx="4"/>');
+    if (r.mean != null) {   // a short tick at your mean
+      parts.push('<line class="mean" x1="' + x(r.mean) + '" y1="' + (cy - 9) +
+                 '" x2="' + x(r.mean) + '" y2="' + (cy + 9) + '"/>');
+    }
     parts.push('<text x="' + (padL - 10) + '" y="' + (cy + 5) +
                '" text-anchor="end">' + esc(r.label) + "</text>");
     parts.push('<text x="' + (x(r.hi) + 8) + '" y="' + (cy + 5) + '">' +
@@ -114,5 +128,14 @@ function renderChart() {
   });
 
   parts.push("</svg>");
-  $("#bm-chart").innerHTML = parts.join("");
+  box.innerHTML = parts.join("");
 }
+
+// Redraw at the new width when the window is resized or the phone is turned.
+let bmResizeTimer = null;
+window.addEventListener("resize", function () {
+  clearTimeout(bmResizeTimer);
+  bmResizeTimer = setTimeout(function () {
+    if (!$("#tab-benchmark").hidden) renderChart();
+  }, 150);
+});

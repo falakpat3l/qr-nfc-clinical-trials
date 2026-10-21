@@ -1,6 +1,9 @@
 /* Typography and colour follow falakpatel.com deliberately: Times, black on
    white, default-blue links, a 660px measure, no cards and no rounded corners. */
 html { color-scheme: light }
+/* Elements below set their own display, which would beat the hidden
+   attribute (the camera box showed as a black rectangle while off). */
+[hidden] { display: none !important }
 body {
   background: #ffffff; color: #000000; margin: 0; padding: 28px 18px 60px;
   font: 17px/1.55 "Times New Roman", Times, serif;
@@ -18,16 +21,21 @@ a:visited { color: #551a8b }
 .muted { color: #555555 }
 small { font-size: 15px }
 
-/* Tabs, styled as the inline text links they are */
-nav.tabs { margin: 18px 0 4px }
+/* Tabs, styled as the inline text links they are. The open one is bold black
+   with a rule under it that sits on the line below the nav. */
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 18px 0 0 }
 nav.tabs button {
   font: 17px/1.5 "Times New Roman", Times, serif;
-  background: none; border: 0; padding: 0; margin-right: 16px;
-  color: #0000ee; text-decoration: underline; cursor: pointer;
+  background: none; border: 0; border-bottom: 2px solid transparent;
+  padding: 2px 0 6px; margin: 0;
+  color: #0000ee; text-decoration: underline; text-underline-offset: 2px; cursor: pointer;
 }
+nav.tabs button:hover { color: #000000 }
 nav.tabs button[aria-current="true"] {
   color: #000000; text-decoration: none; font-weight: bold; cursor: default;
+  border-bottom-color: #000000;
 }
+nav.tabs + hr { margin-top: -1px }
 hr { border: 0; border-top: 1px solid #dddddd; margin: 14px 0 22px }
 
 /* Forms */
@@ -37,28 +45,66 @@ input, select {
   font: 17px/1.4 "Times New Roman", Times, serif;
   padding: 4px 6px; border: 1px solid #999999; background: #ffffff; color: #000000;
   width: 100%; box-sizing: border-box; border-radius: 0;
+  transition: border-color .15s;
 }
-.row { display: flex; gap: 14px; flex-wrap: wrap }
+input { height: 34px }
+select { height: 34px }
+input:hover, select:hover { border-color: #555555 }
+input:focus, select:focus { border-color: #0000ee; outline: 1px solid #0000ee; outline-offset: 0 }
+input[aria-invalid="true"] { border-color: #b00020; outline-color: #b00020 }
+.row { display: flex; gap: 0 14px; flex-wrap: wrap }
 .row > label { flex: 1 1 150px }
 
 button.act {
   font: 17px/1.5 "Times New Roman", Times, serif;
-  background: none; border: 0; padding: 0; margin: 0 16px 0 0;
-  color: #0000ee; text-decoration: underline; cursor: pointer;
+  background: none; border: 0; padding: 4px 0; margin: 0;
+  color: #0000ee; text-decoration: underline; text-underline-offset: 2px; cursor: pointer;
 }
+button.act:hover:not(:disabled) { color: #000000 }
 button.act:disabled { color: #999999; text-decoration: none; cursor: default }
-.actions { margin: 4px 0 13px }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; margin: 4px 0 13px }
+/* The one button you press over and over while timing: a real target for a thumb. */
+button.act.press {
+  border: 1px solid #000000; padding: 8px 26px; text-decoration: none; color: #000000;
+  background: #ffffff; transition: background-color .1s;
+}
+button.act.press:hover:not(:disabled) { background: #f2f2f2 }
+button.act.press:active:not(:disabled) { background: #e2e2e2 }
+button.act.press:disabled { border-color: #cccccc }
 
 /* Output surfaces */
-#qr-out { margin: 14px 0 8px }
-#qr-out img, #qr-out canvas { display: block; image-rendering: pixelated }
-video { display: block; width: 100%; max-width: 420px; background: #000000 }
+#qr-out { margin: 16px 0 8px }
+#qr-out img, #qr-out canvas { display: block; image-rendering: pixelated; max-width: 100% }
+.qr-empty {
+  width: 240px; max-width: 100%; height: 240px; box-sizing: border-box;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 24px; border: 1px dashed #bbbbbb; color: #555555; font-size: 15px;
+}
+video { display: block; width: 100%; max-width: 420px; background: #000000; margin: 0 0 13px }
 .payload {
   font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
   word-break: break-all; color: #555555; margin: 0 0 13px;
 }
 .note { font-size: 15px; color: #555555; margin: 0 0 13px }
 .err  { font-size: 15px; color: #000000; margin: 0 0 13px }
+
+/* Status lines: plain text with a thin rule on the left, so they read as
+   messages from the app rather than as part of the instructions. */
+.msg { font-size: 15px; margin: 0 0 13px; padding: 2px 0 2px 10px; border-left: 3px solid #bbbbbb }
+.msg.ok   { border-left-color: #0000ee }
+.msg.err  { border-left-color: #b00020; color: #7a0016 }
+.msg.info { border-left-color: #555555; color: #333333 }
+
+/* The result of the last scan or tag read */
+.result { border-top: 1px solid #dddddd; border-bottom: 1px solid #dddddd; padding: 2px 0 0; margin: 0 0 13px }
+.result h3 { margin-top: 10px }
+.result .msg { margin: 10px 0 }
+.empty { border: 1px dashed #bbbbbb; padding: 14px 16px 2px; margin: 0 0 13px }
+.empty p { margin: 0 0 10px }
+
+.table-scroll { overflow-x: auto; margin: 0 0 13px; -webkit-overflow-scrolling: touch }
+.table-scroll table { margin: 0 }
+.table-scroll td { white-space: nowrap }
 
 table { border-collapse: collapse; width: 100%; font-size: 15px; margin: 0 0 13px }
 th, td { text-align: left; padding: 4px 10px 4px 0; border-bottom: 1px solid #eeeeee;
@@ -82,6 +128,8 @@ li { margin-bottom: 5px }
 .chart text { font: 14px/1 "Times New Roman", Times, serif; fill: #000000 }
 .chart text.axis { fill: #555555 }
 .chart .grid { stroke: #e2e2e2; stroke-width: 1 }
+.chart .mean { stroke: #000000; stroke-width: 2 }
+.chart svg { display: block; max-width: 100%; height: auto }
 .chart g.mark:hover .bar { opacity: .72 }
 
 .big { font-size: 22px; font-weight: bold; font-variant-numeric: tabular-nums }
@@ -90,10 +138,14 @@ footer { margin-top: 34px; font-size: 15px }
 :focus-visible { outline: 2px solid #0000ee; outline-offset: 2px }
 
 @media (max-width: 520px) {
+  body { padding-top: 20px }
   .row { display: block }
-  nav.tabs button { display: inline-block; margin-bottom: 6px }
+  nav.tabs { gap: 4px 14px }
+  button.act.press { flex: 1 1 100%; order: 1; padding: 12px }
 }
-@media (prefers-reduced-motion: reduce) { * { animation: none !important } }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important }
+}
 
 /* Write-up page: tables carry real content here, so give them air */
 table th[scope], tbody th { font-weight: bold; padding-right: 14px }

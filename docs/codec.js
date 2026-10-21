@@ -41,7 +41,8 @@
   }
 
   function decodeEvent(text) {
-    var parts = String(text).split("|");
+    // Trim, because NFC text records and some scanners add a trailing newline.
+    var parts = String(text == null ? "" : text).trim().split("|");
     if (parts[0] !== SCHEME) {
       throw new Error("Not a dosing-event code (expected " + SCHEME + ")");
     }
@@ -51,7 +52,13 @@
     }
     var rec = {};
     FIELDS.forEach(function (f, i) {
-      rec[f] = decodeURIComponent(parts[i + 1]);
+      try {
+        rec[f] = decodeURIComponent(parts[i + 1]);
+      } catch (e) {
+        // A stray "%" (hand-made or damaged label) makes decodeURIComponent
+        // throw a cryptic "URI malformed". Say which field is broken instead.
+        throw new Error("Field \"" + f + "\" is not encoded correctly");
+      }
     });
     return rec;
   }
