@@ -21,8 +21,13 @@ function loadStore() {
     events = raw ? JSON.parse(raw) : [];
     if (!Array.isArray(events)) events = [];
     // Drop anything that is not a saved row, so one bad entry can't break the log.
+    // Every value is turned back into plain text, whatever was stored.
     events = events.filter(function (e) {
       return e && typeof e === "object" && typeof e.ts === "string";
+    }).map(function (e) {
+      const row = { ts: e.ts, source: String(e.source == null ? "" : e.source) };
+      FIELDS.forEach(function (f) { row[f] = e[f] == null ? "" : String(e[f]); });
+      return row;
     });
   } catch (e) {
     events = [];   // private mode, blocked storage, or bad JSON: start empty
@@ -53,8 +58,8 @@ function $(selector) { return document.querySelector(selector); }
 
 // Makes text safe to put inside HTML (so a "<" in a drug name can't break the page).
 function esc(s) {
-  return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
-    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
   });
 }
 
@@ -91,12 +96,9 @@ function say(selector, text, kind) {
 
 // Checks an event before it is printed, logged or written to a tag.
 // Returns "" when it is fine, or a sentence saying what to fix.
+// The same rules are applied to every scanned code and tag, in codec.js.
 function validateRecord(rec) {
-  if (!rec.sid) return "Enter a subject or animal ID.";
-  if (rec.dose && !/^(\d+\.?\d*|\.\d+)$/.test(rec.dose)) {
-    return "Dose must be a number, like 10 or 2.5 (use a dot for decimals).";
-  }
-  return "";
+  return CTDE.validateEvent(rec);
 }
 
 // A short buzz on phones, so the user knows a capture worked.

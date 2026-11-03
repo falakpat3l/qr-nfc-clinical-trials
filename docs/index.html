@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>QR and NFC data capture for clinical trials</title>
 <meta name="description" content="Whether scanning a code beats writing on a clipboard when recording dosing events in a trial, and an offline capture tool that implements the faster of the two.">
@@ -31,7 +32,7 @@
 <p>Both QR codes and NFC tags remove the second pass. You scan, and the record is already structured and already timestamped. The question here is how much that actually saves, and which of the two is the better bet.</p>
 
 <h2>Time to record one observation</h2>
-<img src="figures/fig2-capture-time.svg" alt="Range chart. QR codes 1 to 3 seconds, NFC tags 3 to 6 seconds, traditional pen and paper 6 to 8 seconds per capture event." style="width:100%;max-width:660px;display:block;margin:0 0 8px">
+<img src="figures/fig2-capture-time.svg" alt="Range chart. QR codes 1 to 3 seconds, NFC tags 3 to 6 seconds, traditional pen and paper 6 to 8 seconds per capture event." class="fig">
 
 <table>
 <thead><tr><th>Method</th><th>Seconds per event</th><th>Needs later re-entry</th></tr></thead>
@@ -45,7 +46,7 @@
 <p>QR scanning was roughly two to three times faster per event than writing by hand, and NFC sat between the two. The re-entry column matters more than the seconds column: the paper arm is the only one that incurs a whole second pass over every record, so the real gap in total labour is wider than these numbers show. I did not time the re-entry pass, so I am not going to put a figure on it.</p>
 
 <h2>What people preferred after trying all three</h2>
-<img src="figures/fig1-user-acceptance.svg" alt="Bar chart. Of ten respondents, four preferred QR codes, four preferred traditional pen and paper, and two preferred NFC tags." style="width:100%;max-width:660px;display:block;margin:0 0 8px">
+<img src="figures/fig1-user-acceptance.svg" alt="Bar chart. Of ten respondents, four preferred QR codes, four preferred traditional pen and paper, and two preferred NFC tags." class="fig">
 
 <p>Ten people doing pre-clinical research used all three methods and then chose one. <strong>Preference split evenly between QR and paper.</strong></p>
 
@@ -115,5 +116,6 @@ PolyForm Noncommercial 1.0.0. Free for research, teaching and public-sector use.
 </footer>
 
 </div>
+<script src="sw-register.js"></script>
 </body>
 </html>

@@ -31,6 +31,42 @@
   var SCHEME = "CTDE1";
   var FIELDS = ["sid", "cage", "drug", "dose", "unit", "route", "op"];
 
+  // A scanned code or tapped tag is untrusted input: anyone can print a QR.
+  // These limits match the form in app.html, so every label the app makes
+  // passes, and anything bigger or stranger is turned away before it is logged.
+  var MAX_LEN = { sid: 64, cage: 64, drug: 80, dose: 12, unit: 16, route: 16, op: 32 };
+  // The longest label the app can make: every field full of characters that
+  // percent-encode to 9 letters each (most non-Latin scripts). Checked on the
+  // raw text before it is split, so a huge tag is rejected cheaply.
+  var MAX_PAYLOAD = SCHEME.length + FIELDS.length + 9 * FIELDS.reduce(function (n, f) {
+    return n + MAX_LEN[f];
+  }, 0);
+  var NAMES = { sid: "Subject", cage: "Cage", drug: "Drug", dose: "Dose",
+                unit: "Unit", route: "Route", op: "Operator" };
+  // Control characters (tabs, line breaks, NUL) and the invisible marks that
+  // flip text direction, which can make a value display as something it is not.
+  var BAD_CHARS = /[\u0000-\u001F\u007F-\u009F\u200E\u200F\u202A-\u202E\u2066-\u2069]/;
+  var NUMBER = /^(\d+\.?\d*|\.\d+)$/;
+
+  // Checks an event. Returns "" when it is fine, or a sentence saying what to fix.
+  function validateEvent(rec) {
+    if (rec == null || typeof rec !== "object") return "Not a dosing event.";
+    for (var i = 0; i < FIELDS.length; i++) {
+      var f = FIELDS[i];
+      var v = rec[f] == null ? "" : rec[f];
+      if (typeof v !== "string") return NAMES[f] + " must be text.";
+      if (v.length > MAX_LEN[f]) {
+        return NAMES[f] + " is too long (at most " + MAX_LEN[f] + " characters).";
+      }
+      if (BAD_CHARS.test(v)) return NAMES[f] + " contains hidden or control characters.";
+    }
+    if (!rec.sid) return "Subject or animal ID is missing.";
+    if (rec.dose && !NUMBER.test(rec.dose)) {
+      return "Dose must be a number, like 10 or 2.5 (use a dot for decimals).";
+    }
+    return "";
+  }
+
   function encodeEvent(rec) {
     if (rec == null || typeof rec !== "object") {
       throw new TypeError("encodeEvent expects a record object");
@@ -42,7 +78,11 @@
 
   function decodeEvent(text) {
     // Trim, because NFC text records and some scanners add a trailing newline.
-    var parts = String(text == null ? "" : text).trim().split("|");
+    var raw = String(text == null ? "" : text).trim();
+    if (raw.length > MAX_PAYLOAD) {
+      throw new Error("Code is too long to be a dosing event");
+    }
+    var parts = raw.split("|");
     if (parts[0] !== SCHEME) {
       throw new Error("Not a dosing-event code (expected " + SCHEME + ")");
     }
@@ -60,9 +100,12 @@
         throw new Error("Field \"" + f + "\" is not encoded correctly");
       }
     });
+    var problem = validateEvent(rec);
+    if (problem) throw new Error(problem.replace(/\.$/, ""));
     return rec;
   }
 
-  return { SCHEME: SCHEME, FIELDS: FIELDS,
-           encodeEvent: encodeEvent, decodeEvent: decodeEvent };
+  return { SCHEME: SCHEME, FIELDS: FIELDS, MAX_LEN: MAX_LEN, MAX_PAYLOAD: MAX_PAYLOAD,
+           encodeEvent: encodeEvent, decodeEvent: decodeEvent,
+           validateEvent: validateEvent };
 });

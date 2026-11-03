@@ -23,7 +23,11 @@ function cameraError(err) {
   if (name === "NotFoundError" || name === "OverconstrainedError" || name === "DevicesNotFoundError") {
     return "No camera was found on this device. You can still log events from the Generate tab.";
   }
-  if (name === "NotReadableError" || name === "TrackStartError") {
+  if (name === "NotSupportedError") {
+    return "This browser cannot open the camera here. Try a current Chrome, Firefox or Safari, " +
+           "not a browser inside another app.";
+  }
+  if (name === "NotReadableError" || name === "TrackStartError" || name === "AbortError") {
     return "The camera is busy or could not start. Close other apps or tabs using it and try again.";
   }
   return "Could not open the camera" + (err && err.message ? ": " + err.message : ".");

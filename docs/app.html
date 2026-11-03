@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Capture app: QR and NFC for clinical trials</title>
 <meta name="description" content="Offline capture tool for trial dosing events: generate and scan QR labels, read and write NFC tags, and benchmark capture time against pen and paper.">
@@ -164,5 +165,6 @@
 <script src="app/benchmark.js"></script>
 <script src="app/log.js"></script>
 <script src="app/main.js"></script>
+<script src="sw-register.js"></script>
 </body>
 </html>

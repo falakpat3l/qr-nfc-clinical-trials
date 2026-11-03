@@ -154,3 +154,7 @@ ol { margin: 0 0 13px; padding-left: 22px }
 ol li { margin-bottom: 5px }
 code { font: 15px/1.4 ui-monospace, "SF Mono", Menlo, monospace }
 img { max-width: 100% }
+img.fig { width: 100%; max-width: 660px; display: block; margin: 0 0 8px }
+/* Write-up tables fit a 360 px phone: headers may wrap, no padding past the edge */
+.w > table th:last-child, .w > table td:last-child { padding-right: 0 }
+@media (max-width: 480px) { .w > table th { white-space: normal } }

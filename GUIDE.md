@@ -46,6 +46,7 @@ All the files in `docs/app/` share one scope, so a function written in one (like
 | `docs/app/` | The app's behaviour, one file per tab: `generate.js`, `scan.js`, `nfc.js`, `benchmark.js`, `log.js`. `common.js` holds the saved events and helpers every tab uses; `main.js` switches tabs and starts the app | change how a tab works: open that tab's file |
 | `docs/style.css` | Looks, for both pages | change colours or spacing |
 | `docs/index.html` | The write-up page | edit the thesis summary |
+| `docs/sw.js` | Keeps a copy of the app in the browser so it opens with no signal (the "service worker"). `docs/sw-register.js` switches it on | add a file to the app, or release a change (see below) |
 | `docs/vendor/` | Two borrowed libraries: one draws QR codes, one reads them | never edit these |
 | `data/*.csv` | The results. `data/README.md` says which are measured and which are not | |
 | `analysis/make_figures.py` | Draws the two charts from the CSVs | change a chart |
@@ -58,11 +59,19 @@ All the files in `docs/app/` share one scope, so a function written in one (like
 
 **Change a chart.** Edit `analysis/make_figures.py` and run it. It saves a PNG (used by the README) and an SVG into `analysis/figures/`. Copy the SVGs into `docs/figures/` so the web page shows the new version too.
 
+**Release any change to the app.** Bump `VERSION` in `docs/sw.js` (`"v1"` to `"v2"`). Phones that already have the app saved then fetch the new files. If you added a new file, also add it to `FILES` in the same file (the test will remind you).
+
 ## Check you didn't break anything
 
 ```
 node test/roundtrip.js
 ```
+
+GitHub runs the same test on every push (`.github/workflows/test.yml`).
+
+## Security, in one paragraph
+
+Anyone can print a QR code or write an NFC tag, so whatever is scanned is treated as untrusted. `codec.js` rejects labels that are too long, have hidden or control characters, or have a dose that is not a number. Scanned text is only ever shown through `esc()` or `textContent`, never as raw HTML. CSV export puts an apostrophe in front of anything Excel would run as a formula. Both pages carry a Content-Security-Policy that only allows files from this site, so even a mistake in the above could not load outside code.
 
 ## Words you will see
 
@@ -70,3 +79,4 @@ node test/roundtrip.js
 - **Percent-encoding**: writing awkward characters as codes (a `|` becomes `%7C`) so a value can never break the line apart.
 - **Vendored**: a library copied into the repo, so the app needs no internet.
 - **Web NFC**: the browser feature for reading NFC tags. Only Chrome on Android has it.
+- **Service worker**: a small script the browser keeps, which can answer the page's requests from a saved copy when there is no network.

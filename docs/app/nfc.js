@@ -72,13 +72,25 @@ $("#nfc-read").addEventListener("click", function () {
     };
     reader.onreading = function (ev) {
       if (ctrl.signal.aborted) return;
+      // A tag is untrusted input: anyone can write one. Read only the first
+      // text record, refuse anything far bigger than a label, and never let a
+      // strange encoding name or broken bytes stop the reader.
       let text = null;
-      for (const record of ev.message.records) {
-        if (record.recordType === "text") {
-          // Text records may be UTF-16; the record says which.
-          text = new TextDecoder(record.encoding || "utf-8").decode(record.data);
-          break;
+      try {
+        for (const record of ev.message.records) {
+          if (record.recordType === "text") {
+            if (!record.data || record.data.byteLength > CTDE.MAX_PAYLOAD * 4) {
+              nfcMsg("That tag holds too much text to be a dosing event.", "err");
+              return;
+            }
+            // Text records may be UTF-16; the record says which.
+            text = new TextDecoder(record.encoding || "utf-8").decode(record.data);
+            break;
+          }
         }
+      } catch (e) {
+        nfcMsg("Could not read the text on that tag.", "err");
+        return;
       }
       if (text == null) { nfcMsg("That tag holds no text record.", "err"); return; }
 
@@ -92,7 +104,7 @@ $("#nfc-read").addEventListener("click", function () {
       $("#nfc-last").innerHTML =
         '<div class="result"><h3>Logged</h3><p>' + esc(describe(rec)) + "<br>" +
         '<span class="muted"><small>' + esc(new Date(row.ts).toLocaleTimeString()) +
-        " &middot; tag " + esc(ev.serialNumber || "n/a") + "</small></span></p></div>";
+        " &middot; tag " + esc(String(ev.serialNumber || "n/a").slice(0, 64)) + "</small></span></p></div>";
     };
     reader.scan({ signal: ctrl.signal }).catch(function (e) {
       if (e && e.name === "AbortError") return;   // the user pressed Stop

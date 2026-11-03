@@ -2,7 +2,33 @@
 
 ## [Unreleased]
 
+### Added
+- Works offline: after one visit online, the capture app (and the write-up)
+  opens and works with no signal, through a service worker (`docs/sw.js`).
+  Pages are fetched fresh when there is signal, and from the saved copy when
+  there is none or it is too slow (4 seconds).
+- GitHub Actions runs `node test/roundtrip.js` on every push.
+- Tests for empty fields, maximum lengths, Gujarati, Hindi and emoji text,
+  malformed and hostile labels, a damaged QR code, the security policy and
+  the offline file list (28 checks, up from 10).
+
+### Security
+- Both pages have a Content-Security-Policy: scripts, styles and data only
+  from this site, no inline code.
+- Scanned codes and NFC tags are treated as untrusted. Labels that are too
+  long, have hidden or control characters (including text-direction tricks),
+  or a dose that is not a number are rejected before they reach the log. A
+  tag with an odd text encoding or far too much data is refused cleanly.
+- Saved log entries are turned back into plain text on load.
+- qrcode-generator updated from 1.4.4 to 2.0.4 (one drawing bug fix, same
+  API). jsQR 1.4.0 is still current. Versions are noted in `docs/vendor/README.md`.
+
 ### Fixed
+- The write-up's results table no longer runs 3 px off a 360 px phone screen.
+- A browser that cannot open the camera at all (often a browser inside
+  another app) now says so, instead of "Not supported".
+- The print window builds the label without inline styles, so it still works
+  under the new security policy.
 - The camera box no longer shows as a black rectangle while the camera is off.
 - Leaving the Scan tab while the camera permission prompt is open no longer
   leaves the camera running in the background.

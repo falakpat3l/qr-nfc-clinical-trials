@@ -111,15 +111,26 @@ $("#gen-print").addEventListener("click", function () {
                     "or use Download PNG and print that.", "err");
     return;
   }
-  w.document.write(
-    '<!doctype html><title>Label</title>' +
-    '<style>body{font:14px/1.4 "Times New Roman",Times,serif;text-align:center;' +
-    'margin:24px}img{width:230px;image-rendering:pixelated}p{margin:8px 0 0}</style>' +
-    '<img src="' + lastQR.canvas.toDataURL("image/png") + '" alt="">' +
-    "<p>" + esc(describe(lastQR.rec)) + "</p>" +
-    "<p>" + esc(lastQR.rec.cage || "") + "</p>"
-  );
-  w.document.close();
+  // Built element by element, with styles set from script: the page's
+  // security policy (which the new window inherits) blocks inline <style>.
+  const d = w.document;
+  d.open();
+  d.write("<!doctype html><title>Label</title><body></body>");
+  d.close();
+  const body = d.body;
+  body.style.cssText = 'font:14px/1.4 "Times New Roman",Times,serif;text-align:center;margin:24px';
+  const img = d.createElement("img");
+  img.alt = "";
+  img.src = lastQR.canvas.toDataURL("image/png");
+  img.style.width = "230px";
+  img.style.imageRendering = "pixelated";
+  body.appendChild(img);
+  [describe(lastQR.rec), lastQR.rec.cage || ""].forEach(function (line) {
+    const p = d.createElement("p");
+    p.style.margin = "8px 0 0";
+    p.textContent = line;
+    body.appendChild(p);
+  });
   w.focus();
   setTimeout(function () { w.print(); }, 250);
 });
